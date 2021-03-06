@@ -26,4 +26,15 @@ if (process.env.NODE_ENV === 'production') {
     res.status(200).sendFile(path.join(__dirname, '../index.html'))
   );
 }
+
+app.use((err, req, res, next) => {
+  const defaultErr = {
+    log: 'Express error handler caught unknown middleware error',
+    status: 500,
+    message: 'An error occurred',
+  };
+  const error = { ...defaultErr, ...err };
+  return res.status(error.status).json(error.message);
+});
+
 app.listen(3000);
