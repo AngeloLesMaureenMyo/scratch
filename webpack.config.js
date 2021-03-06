@@ -12,14 +12,14 @@ module.exports = {
   devServer: {
     publicPath: "/build/",
     proxy: {
-      "/api/leaders": "http://localhost:3000",
+      "/login": "http://localhost:3000",
     },
     // hot: true,
   },
   module: {
     rules: [
       {
-        test: /\.jsx?/,
+        test: /\.(js|jsx)$/,
         exclude: /(node_modules|bower_components)/,
         use: {
           loader: "babel-loader",
