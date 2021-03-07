@@ -1,4 +1,4 @@
-export const addMarket = (marketLocation) => ({
-  type: types.ADD_MARKET,
-  payload: marketLocation,
+export const authenticate = (isAuthenticated) => ({
+  type: types.AUTHENTICATE,
+  payload: isAuthenticated,
 });
