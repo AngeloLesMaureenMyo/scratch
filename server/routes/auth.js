@@ -5,11 +5,11 @@ const authController = require('../controllers/authController');
 const router = express.Router();
 
 router.post(
-  '/create',
+  '/signup',
   authController.create,
   authController.addJWT,
   (req, res) => {
-    res.status(200).json('user created!'); // eventually send res.locals.user
+    res.status(200).json(res.locals.user); // eventually send res.locals.user
   }
 );
 
@@ -18,7 +18,7 @@ router.post(
   authController.login,
   authController.addJWT,
   (req, res) => {
-    res.status(200).json('you are logged in!'); // eventually send res.locals.user
+    res.status(200).json(res.locals.user); // eventually send res.locals.user
   }
 );
 

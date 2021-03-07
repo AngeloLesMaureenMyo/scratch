@@ -1,14 +1,15 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const db = require('../models/socialModels');
 const saltRounds = 10;
 const jwtSecret = 'super-secret-secret';
 
 const authController = {};
 
-const db = {
-  username: 'angelo',
-  password: '$2b$10$MNntgeRRJo02PJUQDWMS8O7q5YhwZjYy0VZL0TpR9wPcWWUg3jio2',
-};
+// const db = {
+//   username: 'angelo',
+//   password: '$2b$10$MNntgeRRJo02PJUQDWMS8O7q5YhwZjYy0VZL0TpR9wPcWWUg3jio2',
+// };
 
 authController.create = (req, res, next) => {
   const { username, password } = req.body;
@@ -22,11 +23,18 @@ authController.create = (req, res, next) => {
   }
 
   bcrypt.hash(password, saltRounds).then((hash) => {
-    console.log(hash);
+    const query = `
+        INSERT INTO users(username, password)
+        VALUES ($1, $2)
+        RETURNING username, _id`;
 
     //SAVE TO DB
-    // GET USER ENTRY BACK FROM DB, store in res.locals??
-    return next();
+    db.query(query, [username, hash]).then((data) => {
+      console.log(data.rows[0]);
+      // GET USER ENTRY BACK FROM DB, store in res.locals
+      res.locals.user = data.rows[0];
+      return next();
+    });
   });
 };
 
@@ -34,18 +42,35 @@ authController.login = (req, res, next) => {
   const { username, password } = req.body;
 
   // READ USER FROM DB
-  // If user not found, send error in response
+  const query = `
+    SELECT username, password, _id FROM users
+    WHERE username = $1`;
 
-  // Compare plaintext pass to hash from DB
-  bcrypt.compare(password, db.password).then((result) => {
-    if (result) return next();
+  db.query(query, [username])
+    .then((data) => {
+      // Compare plaintext pass to hash from DB
+      bcrypt.compare(password, data.rows[0].password).then((result) => {
+        if (result) {
+          const user = {
+            username: data.rows[0].username,
+            id: data.rows[0]['_id'],
+          };
 
-    return next({
-      log: 'error authController.login',
-      status: 401,
-      message: 'invalid username/password combination',
+          res.locals.user = user;
+          return next();
+        }
+
+        return next({
+          log: 'error authController.login',
+          status: 401,
+          message: 'invalid username/password combination',
+        });
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+      return next(error);
     });
-  });
 };
 
 authController.verifyUser = (req, res, next) => {
@@ -91,5 +116,7 @@ authController.addJWT = (req, res, next) => {
     }
   );
 };
+
+// /auth/check - GET request to see if user is logged in
 
 module.exports = authController;

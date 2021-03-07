@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const app = express();
 
 const authRouter = require('./routes/auth');
+const postsRouter = require('./routes/posts');
 const authController = require('./controllers/authController');
 
 app.use(express.json());
@@ -14,6 +15,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.use('/auth', authRouter);
+
+app.use('/posts', postsRouter);
 
 app.get('/secret', authController.verifyUser, (req, res) => {
   return res.status(200).json('here is some secret info!');
