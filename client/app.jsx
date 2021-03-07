@@ -11,40 +11,36 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    authenticate: (   ) => { dispatch({ type: 'AUTHENTICATE', isAuthenticated: isAuthenticated }); } 
-  }
+    authenticate: () => {
+      dispatch({ type: 'AUTHENTICATE', isAuthenticated: isAuthenticated });
+    },
+  };
 };
 
 class App extends Component {
   constructor(props) {
     super(props);
   }
-  
 
-  componentDidMount() {  
+  componentDidMount() {
     fetch('/auth/check', {
       method: 'GET',
     })
-      .then(resp => resp.json())
+      .then((resp) => resp.json())
       .then((data) => {
-
         if (data === 111111) {
-
           //console.log(123123, data);
           const { isAuthenticated } = this.props;
           isAuthenticated(true);
           props.history.push('/');
-
         } else {
           props.history.push('/signup');
         }
-
       })
-      .catch(err => console.log('Login fetch /auth/login: ERROR: ', err));
+      .catch((err) => console.log('Login fetch /auth/login: ERROR: ', err));
   }
 
   render() {
-
     // return (
     //   <div className="router">
     //     <main>
@@ -64,20 +60,17 @@ class App extends Component {
     //       </BrowserRouter>
     //     </main>
     //   </div>
-  
+
     return (
       <div className="router">
-
-          <BrowserRouter>
-            <Switch>
-              <Route path='/' exact component={Login} />
-              <Route path="/signup" exact component={Signup} />
-            </Switch>   
-          </BrowserRouter>
-
+        <BrowserRouter>
+          <Switch>
+            <Route path="/" exact component={Login} />
+            <Route path="/signup" exact component={Signup} />
+          </Switch>
+        </BrowserRouter>
       </div>
     );
-
   }
 }
 
