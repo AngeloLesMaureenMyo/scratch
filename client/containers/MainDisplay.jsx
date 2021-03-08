@@ -5,11 +5,11 @@ import { connect } from 'react-redux';
 const mapStateToProps = (state) => {
   console.log(state);
   return {
-    title: state.posts.title,
-    body: state.posts.body,
-    userName: state.posts.userName,
+    title: state.allPosts.title,
+    body: state.allPosts.body,
+    userName: state.allPosts.userName,
     // numberOfcomments: this.numberOfcomments,
-    createdAt: state.createdAt,
+    createdAt: state.allPosts.createdAt,
   };
 };
 
