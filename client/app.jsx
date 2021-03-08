@@ -23,18 +23,19 @@ class App extends Component {
   }
 
   componentDidMount() {
+    // console.log(props);
     fetch('/auth/check', {
       method: 'GET',
     })
       .then((resp) => resp.json())
       .then((data) => {
-        if (data === 111111) {
-          //console.log(123123, data);
+        if (data) {
+          console.log(data);
           const { isAuthenticated } = this.props;
           isAuthenticated(true);
-          props.history.push('/');
+          history.push('/posts');
         } else {
-          props.history.push('/signup');
+          history.push('/signup');
         }
       })
       .catch((err) => console.log('Login fetch /auth/login: ERROR: ', err));
