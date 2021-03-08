@@ -76,24 +76,12 @@ authController.login = (req, res, next) => {
 authController.verifyUser = (req, res, next) => {
   const token = req.cookies.jwt;
   if (!token) {
-    // USER IS NOT LOGGED IN, REDIRECT TO SIGN IN
-    // console.log(token);
-    // return next({
-    //   log: 'error in authController.verifyUser',
-    //   status: 403,
-    //   message: 'You must be logged in to access this resource',
-    // });
     return res.json();
   }
 
   // Verify Token
   jwt.verify(token, jwtSecret, (err, decoded) => {
-    if (!decoded)
-      return next({
-        log: 'error verifying jwt token',
-        status: 403,
-        message: 'You must be logged in to access this resource',
-      });
+    if (!decoded) return res.json();
     const { username, id } = decoded;
     res.locals.user = { username, id };
 

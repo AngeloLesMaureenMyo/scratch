@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getPosts } from '../actions/actions';
 import Post from './Post.jsx';
+import PostForm from './PostForm.jsx';
 
 const mapStateToProps = (state) => {
   //
@@ -20,27 +21,28 @@ class PostsContainer extends Component {
     super(props);
   }
   componentDidMount() {
-    // make get request to /posts
-    console.log(this.props.getPosts);
-    console.log(this.props);
-
     this.props.getPosts();
   }
 
   renderPosts() {
-    if (this.props.posts)
+    if (Array.isArray(this.props.posts.posts)) {
       return this.props.posts.posts.map((post, i) => (
-        <Post key={`Post ${i}`} title={post.title} body={post.body} />
+        <Post
+          key={`Post ${i}`}
+          title={post.title}
+          body={post.body}
+          userId={post.user_id}
+        />
       ));
+    }
   }
 
   render() {
-    console.log(this.props);
-    // console.log(props.posts);
     return (
       <div>
-        <h1>PostsContainer</h1>
+        <a href="/auth/logout">Logout</a>
         {this.renderPosts()}
+        <PostForm />
       </div>
     );
   }

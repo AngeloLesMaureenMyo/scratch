@@ -23,7 +23,7 @@ router.post(
 );
 
 router.get('/logout', authController.logout, (req, res) => {
-  res.status(200).json();
+  res.redirect('/');
 });
 
 router.get('/check', authController.verifyUser, (req, res) => {
