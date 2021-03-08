@@ -16,6 +16,8 @@ const mapDispatchToProps = (dispatch) => {
     updateBody: (value) => dispatch(updateBody(value)),
     handleSubmit: (e, title, body, id) => {
       e.preventDefault();
+      if (!title || !body) return;
+
       dispatch(savePost(title, body, id));
     },
   };
@@ -24,8 +26,7 @@ const mapDispatchToProps = (dispatch) => {
 class PostForm extends Component {
   render() {
     return (
-      <div className="PostForm">
-        <h1>PostForm</h1>
+      <center className="PostForm">
         <form
           onSubmit={(e) =>
             this.props.handleSubmit(
@@ -40,12 +41,15 @@ class PostForm extends Component {
             placeholder="Add a title"
             onChange={(e) => this.props.updateTitle(e.target.value)}
           />
+          <br />
           <textarea
             placeholder="Add a body"
             onChange={(e) => this.props.updateBody(e.target.value)}
           />
+          <br />
+          <button type="submit">Add Post</button>
         </form>
-      </div>
+      </center>
     );
   }
 }

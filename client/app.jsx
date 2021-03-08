@@ -47,12 +47,14 @@ class App extends Component {
     console.log('The current user is :', this.props.user);
     if (this.props.user !== null) {
       return (
-        <BrowserRouter>
-          <Switch>
-            <Route path="/feed" exact component={PostsContainer} />
-            <Route path="/" exact component={FeedLink} />
-          </Switch>
-        </BrowserRouter>
+        <div>
+          <BrowserRouter>
+            <Switch>
+              <Route path="/feed" exact component={PostsContainer} />
+              <Route path="/" exact component={FeedLink} />
+            </Switch>
+          </BrowserRouter>
+        </div>
       );
     }
     return (

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import Navbar from './Navbar.jsx';
 
 // Custom hook for handling input boxes
 // saves us from creating onChange handlers for them individually
@@ -45,7 +46,7 @@ const Signup = (props) => {
           //console.log(321321, data);
         })
         .then(() => {
-          props.history.push('/feed');
+          props.history.push('/');
         })
         .catch((err) => console.log('Sign up fetch /auth/login: ERROR: ', err));
     }
@@ -66,28 +67,35 @@ const Signup = (props) => {
 
   return (
     <section className="mainSection">
+      <Navbar />
       <header className="pageHeader">
         <h2>Sign Up</h2>
       </header>
       <article className="card createChar">
         <div className="createCharFields">
-          <label htmlFor="username">Name: </label>
-          <input name="username" value={username} onChange={usernameOnChange} />
-          {usernameError ? (
-            <span className="errorMsg">{usernameError}</span>
-          ) : null}
-        </div>
-        <div className="createCharFields">
-          <label htmlFor="password">Password: </label>
-          <input
-            name="password"
-            type="password"
-            value={password}
-            onChange={passwordOnChange}
-          />
-          {passwordError ? (
-            <span className="errorMsg">{passwordError}</span>
-          ) : null}
+          <div className="input">
+            <label htmlFor="username">Name: </label>
+            <input
+              name="username"
+              value={username}
+              onChange={usernameOnChange}
+            />
+            {usernameError ? (
+              <span className="errorMsg">{usernameError}</span>
+            ) : null}
+          </div>
+          <div className="input">
+            <label htmlFor="password">Password: </label>
+            <input
+              name="password"
+              type="password"
+              value={password}
+              onChange={passwordOnChange}
+            />
+            {passwordError ? (
+              <span className="errorMsg">{passwordError}</span>
+            ) : null}
+          </div>
         </div>
         <div className="createCharFields">
           <label htmlFor="password2">Confirm: </label>
