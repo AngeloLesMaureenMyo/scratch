@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import Wrapper from './containers/MainContainer.jsx';
 import Login from './components/Login.jsx';
 import Signup from './components/Signup.jsx';
+import PostsContainer from './components/PostsContainer.jsx';
+import FeedLink from './components/FeedLink.jsx';
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.scratch.isAuthenticated,
+  user: state.scratch.user,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    authenticate: () => {
-      dispatch({ type: 'AUTHENTICATE', isAuthenticated: isAuthenticated });
+    authenticate: (user) => {
+      dispatch({ type: 'AUTHENTICATE', payload: user });
     },
   };
 };
@@ -30,9 +32,9 @@ class App extends Component {
       .then((resp) => resp.json())
       .then((data) => {
         if (data) {
-          console.log(data);
-          const { isAuthenticated } = this.props;
-          isAuthenticated(true);
+          const { authenticate } = this.props;
+
+          authenticate(data);
           history.push('/posts');
         } else {
           history.push('/signup');
@@ -42,30 +44,22 @@ class App extends Component {
   }
 
   render() {
-    // return (
-    //   <div className="router">
-    //     <main>
-    //       {/*
-    //           NOTE: The syntax below is for React-Router
-    //             - A helpful library for routing with a React app.
-    //             You can learn more about this at:
-    //             https://reacttraining.com/react-router/web/guides/quick-start
-    //       */}
-    //       <BrowserRouter>
-    //         <Switch>
-    //           <Route
-    //             exact
-    //             path="/"
-    //             component={Wrapper}
-    //           />
-    //       </BrowserRouter>
-    //     </main>
-    //   </div>
-
+    console.log('The current user is :', this.props.user);
+    if (this.props.user !== null) {
+      return (
+        <BrowserRouter>
+          <Switch>
+            <Route path="/feed" exact component={PostsContainer} />
+            <Route path="/" exact component={FeedLink} />
+          </Switch>
+        </BrowserRouter>
+      );
+    }
     return (
       <div className="router">
         <BrowserRouter>
           <Switch>
+            <Route path="/feed" exact component={PostsContainer} />
             <Route path="/" exact component={Login} />
             <Route path="/signup" exact component={Signup} />
           </Switch>
