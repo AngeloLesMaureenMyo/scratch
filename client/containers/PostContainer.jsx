@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import MainDisplay from './MainDisplay.jsx';
+import MainDisplay from './PostDisplay.jsx';
 
 // passing state data to props
 const mapStateToProps = (state) => {
@@ -18,6 +18,7 @@ const mapDispatchToProps = (dispatch) => ({});
 
 class MainContainer extends Component {
   // render the page
+  componentDidMount() {}
   render() {
     return (
       <div className="container">
@@ -33,6 +34,4 @@ class MainContainer extends Component {
 }
 
 //exporting MainContainer component binding/connecting mapStateToProps and mapDispatchToProps data
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(MainContainer)
-);
+export default connect(mapStateToProps, mapDispatchToProps)(MainContainer);
