@@ -9,7 +9,7 @@ router.post(
   authController.create,
   authController.addJWT,
   (req, res) => {
-    res.status(200).json(res.locals.user); // eventually send res.locals.user
+    res.status(200).json(res.locals.user);
   }
 );
 
@@ -18,8 +18,12 @@ router.post(
   authController.login,
   authController.addJWT,
   (req, res) => {
-    res.status(200).json(res.locals.user); // eventually send res.locals.user
+    res.status(200).json(res.locals.user);
   }
 );
+
+router.get('/logout', authController.logout, (req, res) => {
+  res.status(200).json();
+});
 
 module.exports = router;

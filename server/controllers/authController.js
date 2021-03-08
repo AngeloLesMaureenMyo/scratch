@@ -86,7 +86,6 @@ authController.verifyUser = (req, res, next) => {
 
   // Verify Token
   jwt.verify(token, jwtSecret, (err, decoded) => {
-    console.log(decoded);
     if (!decoded)
       return next({
         log: 'error verifying jwt token',
@@ -115,6 +114,11 @@ authController.addJWT = (req, res, next) => {
       return next();
     }
   );
+};
+
+authController.logout = (req, res, next) => {
+  res.cookie('jwt', null);
+  return next();
 };
 
 // /auth/check - GET request to see if user is logged in
