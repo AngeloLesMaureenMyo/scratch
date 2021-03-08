@@ -11,9 +11,12 @@ module.exports = {
   mode: process.env.NODE_ENV,
   devServer: {
     publicPath: '/build/',
-    proxy: {
-      '/auth': 'http://localhost:3000',
-    },
+    proxy: [
+      {
+        context: ['/auth', '/secret', '/posts'],
+        target: 'http://localhost:3000',
+      },
+    ],
     // hot: true,
   },
   module: {

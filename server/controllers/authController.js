@@ -53,7 +53,7 @@ authController.login = (req, res, next) => {
         if (result) {
           const user = {
             username: data.rows[0].username,
-            id: data.rows[0]['_id'],
+            id: data.rows[0]._id,
           };
 
           res.locals.user = user;
@@ -77,11 +77,13 @@ authController.verifyUser = (req, res, next) => {
   const token = req.cookies.jwt;
   if (!token) {
     // USER IS NOT LOGGED IN, REDIRECT TO SIGN IN
-    return next({
-      log: 'error in authController.verifyUser',
-      status: 403,
-      message: 'missing jwt',
-    });
+    // console.log(token);
+    // return next({
+    //   log: 'error in authController.verifyUser',
+    //   status: 403,
+    //   message: 'You must be logged in to access this resource',
+    // });
+    return res.json();
   }
 
   // Verify Token
@@ -90,8 +92,10 @@ authController.verifyUser = (req, res, next) => {
       return next({
         log: 'error verifying jwt token',
         status: 403,
-        message: 'invalid jwt',
+        message: 'You must be logged in to access this resource',
       });
+    const { username, id } = decoded;
+    res.locals.user = { username, id };
 
     return next();
   });
@@ -99,8 +103,9 @@ authController.verifyUser = (req, res, next) => {
 
 authController.addJWT = (req, res, next) => {
   const { username } = req.body;
+  const { id } = res.locals.user;
   jwt.sign(
-    { username },
+    { username, id },
     jwtSecret,
     {
       expiresIn: '1h',
