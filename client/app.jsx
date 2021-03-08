@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Wrapper from './containers/MainContainer.jsx';
 import Login from './components/Login.jsx';
 import Signup from './components/Signup.jsx';
+import PostsContainer from './components/PostsContainer.jsx';
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.scratch.isAuthenticated,
@@ -70,6 +71,7 @@ class App extends Component {
             <Route path="/signup" exact component={Signup} />
           </Switch>
         </BrowserRouter>
+        <PostsContainer />
       </div>
     );
   }
