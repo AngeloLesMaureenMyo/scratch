@@ -1,55 +1,38 @@
-/**
- * ************************************
- *
- * @module  MainContainer
- * @author
- * @date
- * @description stateful component that renders...
- *
- * ************************************
- */
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-//import FriendsContainer from './FriendsContainer.jsx';
+import { withRouter } from 'react-router-dom';
+import MainDisplay from './MainDisplay.jsx';
 
-// import from child components...
+// passing state data to props
+const mapStateToProps = (state) => {
+  return {
+    id: state.posts.id,
+    uid: state.posts.uid,
+    title: state.posts.title,
+    body: state.posts.body,
+  };
+};
 
-const mapStateToProps = (state) => ({
-  // provide pertinent state here
-  // totalFriends: state.friends.totalFriends,
-});
-
-
-const mapDispatchToProps = dispatch => ({
-
-});
+// IIFE : store action objects to props in order to dispatch
+const mapDispatchToProps = (dispatch) => ({});
 
 class MainContainer extends Component {
-  constructor(props) {
-    super(props);
-  }
-
+  // render the page
   render() {
-     
-    //return(
-      // <div className="container">
-      //   <div className="outerBox">
-      //     <h1 id="header">KEEP TRACK OF FRIENDS!</h1>
-          
-      //     {/* TOTALS DISPLAY */}
-      //     <div className="innerbox" id="totals">
-      //       <label htmlFor="totalFriends">Total Friends:</label>
-      //       <span id="totalFriends">{this.props.totalFriends}</span>
-      //     </div>
-
-      //     {<FriendsContainer/>}
-        
-      //   </div>
-      // </div>
-    //);
+    return (
+      <div className="container">
+        <div className="posts">
+          {/* keywords search for strectch features */}
+          {/* display title of the post(name of the post) */}
+          {/* post thread */}
+          <MainDisplay />
+        </div>
+      </div>
+    );
   }
-
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainContainer);
+//exporting MainContainer component binding/connecting mapStateToProps and mapDispatchToProps data
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(MainContainer)
+);
