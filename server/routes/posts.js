@@ -1,5 +1,6 @@
 const express = require('express');
 const postsController = require('../controllers/postsController');
+const authController = require('../controllers/authController');
 const router = express.Router();
 
 router.post('/', postsController.createPost, (req, res) => {
@@ -7,7 +8,12 @@ router.post('/', postsController.createPost, (req, res) => {
   res.status(200).json(res.locals.newPost);
 });
 
-router.get('/', postsController.getAllPosts, (req, res) => {
-  res.status(200).json(res.locals.allPosts);
-});
+router.get(
+  '/',
+  authController.verifyUser,
+  postsController.getAllPosts,
+  (req, res) => {
+    res.status(200).json(res.locals.allPosts);
+  }
+);
 module.exports = router;

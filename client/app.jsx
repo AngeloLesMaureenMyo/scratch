@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import Wrapper from './containers/MainContainer.jsx';
 import Login from './components/Login.jsx';
 import Signup from './components/Signup.jsx';
+import PostsContainer from './components/PostsContainer.jsx';
+import FeedLink from './components/FeedLink.jsx';
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.scratch.isAuthenticated,
+  user: state.scratch.user,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    authenticate: () => {
-      dispatch({ type: 'AUTHENTICATE', isAuthenticated: isAuthenticated });
+    authenticate: (user) => {
+      dispatch({ type: 'AUTHENTICATE', payload: user });
     },
   };
 };
@@ -23,29 +25,48 @@ class App extends Component {
   }
 
   componentDidMount() {
+    // console.log(props);
     fetch('/auth/check', {
       method: 'GET',
     })
       .then((resp) => resp.json())
       .then((data) => {
-        if (data === 111111) {
-          //console.log(123123, data);
-          const { isAuthenticated } = this.props;
-          isAuthenticated(true);
-          props.history.push('/');
+        if (data) {
+          const { authenticate } = this.props;
+
+          authenticate(data);
+          history.push('/posts');
         } else {
-          props.history.push('/signup');
+          history.push('/signup');
         }
       })
       .catch((err) => console.log('Login fetch /auth/login: ERROR: ', err));
   }
 
   render() {
+<<<<<<< HEAD
+=======
+    console.log('The current user is :', this.props.user);
+    if (this.props.user !== null) {
+      return (
+        <BrowserRouter>
+          <Switch>
+            <Route path="/feed" exact component={PostsContainer} />
+            <Route path="/" exact component={FeedLink} />
+          </Switch>
+        </BrowserRouter>
+      );
+    }
+>>>>>>> 67bf5365a8a635263348eb29d3110092cd4cde54
     return (
       <div className="router">
         <BrowserRouter>
           <Switch>
+<<<<<<< HEAD
             <Route path="/post" exact component={Wrapper} />
+=======
+            <Route path="/feed" exact component={PostsContainer} />
+>>>>>>> 67bf5365a8a635263348eb29d3110092cd4cde54
             <Route path="/" exact component={Login} />
             <Route path="/signup" exact component={Signup} />
           </Switch>

@@ -30,6 +30,10 @@ if (process.env.NODE_ENV === 'production') {
   );
 }
 
+app.get('*', (req, res) => {
+  return res.status(404).json();
+});
+
 app.use((err, req, res, next) => {
   const defaultErr = {
     log: 'Express error handler caught unknown middleware error',

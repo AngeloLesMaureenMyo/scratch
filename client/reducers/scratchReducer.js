@@ -2,21 +2,18 @@
 import * as types from '../constants/actionTypes';
 
 const initialState = {
-  isAuthenticated: false,
+  user: null,
 };
 
 const scratchReducer = (state = initialState, action) => {
-
   switch (action.type) {
-    
     case types.AUTHENTICATE: {
-      const isAuthenticated = action;
+      // const isAuthenticated = action;
 
       return {
         ...state,
-        isAuthenticated
-      }
-
+        user: action.payload,
+      };
     }
 
     default: {
