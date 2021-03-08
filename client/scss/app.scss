@@ -11,10 +11,6 @@ body {
   display: grid;
   grid-template-columns: 15vw auto auto auto 15vw;
   grid-template-rows: auto auto auto auto;
-  // 20% auto 20% 5%
-  // 10% 10% auto 20%;
-  // align-items: center;
-  // text-align: center;
 }
 .title {
   grid-row-end: 1;
@@ -28,13 +24,14 @@ body {
 }
 
 .comments {
-  // background-color: rgb(104, 142, 204);
+  box-sizing: border-box;
+  position: relative;
   grid-row-start: 2;
   grid-column-start: 3;
   text-align: center;
   padding: 1vw;
-  border-radius: 1vw;
   border-style: solid;
+  float: left;
 }
 
 .commentBox {

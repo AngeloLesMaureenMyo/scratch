@@ -21,7 +21,9 @@ const MainDisplay = (props) => (
   <div className="innerBox">
     <h1 className="title">Welcome back {props.userName}</h1>
     <h2 id="post">{props.title}</h2>
-    <div className="comments">{props.body}</div>
+    <div className="comments">
+      <p>{props.body}</p>
+    </div>
     <input
       className="commentBox"
       placeholder="Please Type your comments here!"
