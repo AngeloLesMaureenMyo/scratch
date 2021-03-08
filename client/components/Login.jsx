@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Navbar from './Navbar.jsx';
 
 // Custom hook for handling input boxes
@@ -11,6 +12,14 @@ const useInput = (init) => {
   };
   // return the value with the onChange function instead of setValue function
   return [value, onChange];
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    authenticate: (user) => {
+      dispatch({ type: 'AUTHENTICATE', payload: user });
+    },
+  };
 };
 
 const Login = (props) => {
@@ -26,7 +35,7 @@ const Login = (props) => {
     } else if (password === '') {
       setPasswordError('required');
     } else {
-      const body = {
+      const reqBody = {
         username,
         password,
       };
@@ -35,13 +44,14 @@ const Login = (props) => {
         headers: {
           'Content-Type': 'Application/JSON',
         },
-        body: JSON.stringify(body),
+        body: JSON.stringify(reqBody),
       })
         .then((resp) => resp.json())
+        // .then((data) => {
+        //   //console.log(321321, data);
+        // })
         .then((data) => {
-          //console.log(321321, data);
-        })
-        .then(() => {
+          console.log('data from login is: ', data);
           props.history.push('/feed');
           // history.push('/hello');
         })
@@ -100,4 +110,4 @@ const Login = (props) => {
   );
 };
 
-export default withRouter(Login);
+export default connect(null, mapDispatchToProps)(Login);

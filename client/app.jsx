@@ -35,9 +35,9 @@ class App extends Component {
           const { authenticate } = this.props;
 
           authenticate(data);
-          history.push('/posts');
+          // this.props.history.push('/posts');
         } else {
-          history.push('/signup');
+          // this.props.history.push('/signup');
         }
       })
       .catch((err) => console.log('Login fetch /auth/login: ERROR: ', err));
@@ -50,8 +50,7 @@ class App extends Component {
         <div>
           <BrowserRouter>
             <Switch>
-              <Route path="/feed" exact component={PostsContainer} />
-              <Route path="/" exact component={FeedLink} />
+              <Route path="/" exact component={PostsContainer} />
             </Switch>
           </BrowserRouter>
         </div>
