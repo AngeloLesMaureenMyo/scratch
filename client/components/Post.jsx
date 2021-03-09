@@ -9,8 +9,10 @@ export default function Post({ title, body, styling }) {
         <p className='PostBody'>{body}</p>
       </div>
       <div className='ButtonsAndCounter'>
-        <button type="button" className="voteButton" id="upvote" onClick={()=> {}}>up</button>
-        <button type="button" className="voteButton" id="downvote" onClick={()=> {}}>down</button>
+        <div className='ButtonsContainer'>
+          <button type="button" className="upVoteButton" id="upvote" onClick={()=> {}}>up</button>
+          <button type="button" className="downVoteButton" id="downvote" onClick={()=> {}}>down</button>
+        </div>
         <p className="votesCounter" id="votes">#of votes</p>
       </div>
     </div>
