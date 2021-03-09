@@ -50,7 +50,7 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 2rem;
-  color: #2a363b;
+  color: rgb(123, 146, 122);
 
   input {
     margin: 10px;
@@ -155,11 +155,24 @@ body {
 }
 
 .Post {
+  display: flex;
+  justify-content: space-between;
   text-align: left;
   margin-bottom: 15px;
   font-size: 1.5rem;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 5px;
+  border-color: rgb(123, 146, 122);
+}
+.TitleAndBody {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
 }
 
 .SignUpHeader {
   margin-bottom: 30px;
 }
+
