@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
-import Wrapper from './containers/MainContainer.jsx';
 import Login from './components/Login.jsx';
 import Signup from './components/Signup.jsx';
 import PostsContainer from './components/PostsContainer.jsx';
@@ -44,8 +43,6 @@ class App extends Component {
   }
 
   render() {
-<<<<<<< HEAD
-=======
     console.log('The current user is :', this.props.user);
     if (this.props.user !== null) {
       return (
@@ -57,16 +54,11 @@ class App extends Component {
         </BrowserRouter>
       );
     }
->>>>>>> 67bf5365a8a635263348eb29d3110092cd4cde54
     return (
       <div className="router">
         <BrowserRouter>
           <Switch>
-<<<<<<< HEAD
-            <Route path="/post" exact component={Wrapper} />
-=======
             <Route path="/feed" exact component={PostsContainer} />
->>>>>>> 67bf5365a8a635263348eb29d3110092cd4cde54
             <Route path="/" exact component={Login} />
             <Route path="/signup" exact component={Signup} />
           </Switch>
