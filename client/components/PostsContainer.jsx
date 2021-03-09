@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import { getPosts } from '../actions/actions';
 import Post from './Post.jsx';
 import PostForm from './PostForm.jsx';
+import Navbar from './Navbar.jsx';
 
 const mapStateToProps = (state) => {
   //
-  return { posts: state.posts };
+  return { posts: state.posts, userId: state.scratch.user.id };
 };
 
 // const mapDispatchToProps = (dispatch) => {
@@ -32,6 +33,7 @@ class PostsContainer extends Component {
           title={post.title}
           body={post.body}
           userId={post.user_id}
+          styling={post.user_id === this.props.userId ? 'MyPost' : null}
         />
       ));
     }
@@ -39,11 +41,13 @@ class PostsContainer extends Component {
 
   render() {
     return (
-      <div>
-        <a href="/auth/logout">Logout</a>
-        {this.renderPosts()}
-        <PostForm />
-      </div>
+      <center>
+        <Navbar />
+        <center className="PostsContainer">
+          {this.renderPosts()}
+          <PostForm />
+        </center>
+      </center>
     );
   }
 }

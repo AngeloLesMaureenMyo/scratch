@@ -1,9 +1,10 @@
 import React from 'react';
 
-export default function Post({ title, body }) {
+export default function Post({ title, body, styling }) {
+  console.log(styling);
   return (
-    <div>
-      <h1>{title}</h1>
+    <div className={`Post ${styling}`}>
+      <h4>{title}:</h4>
       <p>{body}</p>
     </div>
   );
