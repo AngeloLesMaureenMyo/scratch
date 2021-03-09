@@ -166,13 +166,42 @@ body {
   padding: 5px;
   border-color: rgb(123, 146, 122);
 }
+
 .TitleAndBody {
   display: flex;
+  text-align: left;
   justify-content: flex-start;
   flex-direction: column;
+  width: 90%;
+}
+
+.ButtonsAndCounter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: right;
+}
+
+.ButtonsContainer {
+  display: flex;
+}
+
+.upVoteButton {
+
+}
+
+.downVoteButton {
+
+}
+
+.votesCounter {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-size: 13px;
 }
 
 .SignUpHeader {
   margin-bottom: 30px;
 }
-
