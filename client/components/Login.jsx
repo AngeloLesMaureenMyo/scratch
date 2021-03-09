@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import Navbar from './Navbar.jsx';
 
 // Custom hook for handling input boxes
 // saves us from creating onChange handlers for them individually
@@ -10,6 +12,14 @@ const useInput = (init) => {
   };
   // return the value with the onChange function instead of setValue function
   return [value, onChange];
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    authenticate: (user) => {
+      dispatch({ type: 'AUTHENTICATE', payload: user });
+    },
+  };
 };
 
 const Login = (props) => {
@@ -25,7 +35,7 @@ const Login = (props) => {
     } else if (password === '') {
       setPasswordError('required');
     } else {
-      const body = {
+      const reqBody = {
         username,
         password,
       };
@@ -34,14 +44,16 @@ const Login = (props) => {
         headers: {
           'Content-Type': 'Application/JSON',
         },
-        body: JSON.stringify(body),
+        body: JSON.stringify(reqBody),
       })
         .then((resp) => resp.json())
+        // .then((data) => {
+        //   //console.log(321321, data);
+        // })
         .then((data) => {
-          //console.log(321321, data);
-        })
-        .then(() => {
-          props.history.push('/feed');
+          console.log('data from login is: ', data);
+          props.authenticate(data);
+          // props.history.push('/feed');
           // history.push('/hello');
         })
         .catch((err) => console.log('Login fetch /auth/login: ERROR: ', err));
@@ -58,41 +70,48 @@ const Login = (props) => {
   }, [password]);
 
   return (
-    <section className="mainSection">
-      <header className="pageHeader">
-        <h2>Login</h2>
-      </header>
-      <article className="card createChar">
-        <div className="createCharFields">
-          <label htmlFor="username">Name: </label>
-          <input name="username" value={username} onChange={usernameOnChange} />
-          {usernameError ? (
-            <span className="errorMsg">{usernameError}</span>
-          ) : null}
-        </div>
-        <div className="createCharFields">
-          <label htmlFor="password">Password: </label>
-          <input
-            name="password"
-            type="password"
-            value={password}
-            onChange={passwordOnChange}
-          />
-          {passwordError ? (
-            <span className="errorMsg">{passwordError}</span>
-          ) : null}
-        </div>
-        <div className="signup">
-          <Link to="/signup" className="link">
-            Sign Up
-          </Link>
-          <button type="button" className="btnMain" onClick={loginUser}>
-            Login
-          </button>
-        </div>
-      </article>
+    <section className="">
+      <Navbar />
+      <div className="Login">
+        <article className="card createChar">
+          <center>
+            <h2 className="SignUpHeader">Yack Yack Yack</h2>
+          </center>
+          <div className="createCharFields">
+            <label htmlFor="username">Username: </label>
+            <input
+              name="username"
+              value={username}
+              onChange={usernameOnChange}
+            />
+            {usernameError ? (
+              <span className="errorMsg">{usernameError}</span>
+            ) : null}
+          </div>
+          <div className="createCharFields">
+            <label htmlFor="password">Password: </label>
+            <input
+              name="password"
+              type="password"
+              value={password}
+              onChange={passwordOnChange}
+            />
+            {passwordError ? (
+              <span className="errorMsg">{passwordError}</span>
+            ) : null}
+          </div>
+          <div className="signup">
+            <Link to="/signup" className="link">
+              Sign Up
+            </Link>
+            <button type="button" className="btnMain" onClick={loginUser}>
+              Login
+            </button>
+          </div>
+        </article>
+      </div>
     </section>
   );
 };
 
-export default withRouter(Login);
+export default connect(null, mapDispatchToProps)(Login);

@@ -1,3 +1,165 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  // font-family: 'Playfair Display SC', serif;
+  font-family: tahoma;
+  overflow-x: hidden;
+}
+
+html {
+  font-size: 10px;
+  color: whitesmoke;
+}
+
 body {
-  background: lightblue;
+  background: #99b898;
+}
+
+.Navbar {
+  height: 50px;
+  width: 100vw;
+  background-color: #5e705d;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.5rem;
+  padding: 0 55px;
+
+  a {
+    text-decoration: none;
+    // color: whitesmoke;
+    color: whitesmoke;
+
+    font-size: 1.5rem;
+    // border: 1px solid black;
+    // border-bottom: 1px solid whitesmoke;
+    // margin-left: 25px;
+  }
+}
+
+.createCharFields {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Login {
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #2a363b;
+
+  input {
+    margin: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 10px;
+    font-size: 2rem;
+  }
+  input:focus {
+    border: none;
+    outline: none;
+  }
+  a {
+    text-decoration: none;
+    color: whitesmoke;
+    font-size: 2rem;
+    // border: 1px solid black;
+    border-bottom: 1px solid whitesmoke;
+    margin-left: 25px;
+  }
+  button {
+    background-color: #424d41;
+    color: whitesmoke;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 2rem;
+    margin-left: 35px;
+  }
+  button:focus {
+    outline: none;
+  }
+  button:hover {
+    cursor: pointer;
+  }
+}
+
+.PostForm {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #99b898;
+  z-index: 5;
+  padding-top: 15px;
+
+  button {
+    background-color: #424d41;
+    color: whitesmoke;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 1.5rem;
+    margin-left: 35px;
+    margin-right: 25px;
+    margin: 10px;
+  }
+  button:focus {
+    outline: none;
+  }
+  button:hover {
+    cursor: pointer;
+  }
+  textarea {
+    border: none;
+    width: 70vw;
+    resize: none;
+
+    border-radius: 3px;
+    height: 70px;
+    padding: 10px;
+    font-size: 1.5rem;
+    background: #d7ffd6;
+  }
+  textarea:focus {
+    outline: none;
+  }
+  input {
+    border: none;
+    width: 70vw;
+    background: #d7ffd6;
+
+    border-radius: 3px;
+    height: 30px;
+    padding: 10px;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  input:focus {
+    outline: none;
+  }
+}
+
+.PostsContainer {
+  margin-top: 20px;
+  color: #2a363b;
+  width: 70vw;
+}
+
+.MyPost {
+  color: rgb(98, 98, 189);
+}
+
+.Post {
+  text-align: left;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+.SignUpHeader {
+  margin-bottom: 30px;
 }

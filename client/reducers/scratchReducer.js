@@ -9,6 +9,7 @@ const scratchReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.AUTHENTICATE: {
       // const isAuthenticated = action;
+      console.log(action.payload);
 
       return {
         ...state,
