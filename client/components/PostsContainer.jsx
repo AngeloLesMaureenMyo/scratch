@@ -5,6 +5,7 @@ import Post from './Post.jsx';
 import PostForm from './PostForm.jsx';
 import Navbar from './Navbar.jsx';
 
+
 const mapStateToProps = (state) => {
   //
   return { posts: state.posts, userId: state.scratch.user.id };
@@ -42,9 +43,9 @@ class PostsContainer extends Component {
   render() {
     return (
       <center>
-        <Navbar />
+        <Navbar />      
         <center className="PostsContainer">
-          {this.renderPosts()}
+            {this.renderPosts()}
           <PostForm />
         </center>
       </center>
