@@ -7,7 +7,7 @@ import Navbar from './Navbar.jsx';
 
 const mapStateToProps = (state) => {
   //
-  return { posts: state.posts, userId: state.scratch.id };
+  return { posts: state.posts, userId: state.scratch.user.id };
 };
 
 // const mapDispatchToProps = (dispatch) => {

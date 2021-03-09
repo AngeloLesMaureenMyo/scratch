@@ -52,7 +52,8 @@ const Login = (props) => {
         // })
         .then((data) => {
           console.log('data from login is: ', data);
-          props.history.push('/feed');
+          props.authenticate(data);
+          // props.history.push('/feed');
           // history.push('/hello');
         })
         .catch((err) => console.log('Login fetch /auth/login: ERROR: ', err));
@@ -73,8 +74,11 @@ const Login = (props) => {
       <Navbar />
       <div className="Login">
         <article className="card createChar">
+          <center>
+            <h2 className="SignUpHeader">Yack Yack Yack</h2>
+          </center>
           <div className="createCharFields">
-            <label htmlFor="username">Name: </label>
+            <label htmlFor="username">Username: </label>
             <input
               name="username"
               value={username}

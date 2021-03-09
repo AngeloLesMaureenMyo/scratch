@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Navbar from './Navbar.jsx';
 
 // Custom hook for handling input boxes
@@ -11,6 +12,14 @@ const useInput = (init) => {
   };
   // return the value with the onChange function instead of setValue function
   return [value, onChange];
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    authenticate: (user) => {
+      dispatch({ type: 'AUTHENTICATE', payload: user });
+    },
+  };
 };
 
 const Signup = (props) => {
@@ -42,10 +51,11 @@ const Signup = (props) => {
         body: JSON.stringify(body),
       })
         .then((resp) => resp.json())
+        // .then((data) => {
+        //   //console.log(321321, data);
+        // })
         .then((data) => {
-          //console.log(321321, data);
-        })
-        .then(() => {
+          props.authenticate(data);
           props.history.push('/');
         })
         .catch((err) => console.log('Sign up fetch /auth/login: ERROR: ', err));
@@ -68,13 +78,13 @@ const Signup = (props) => {
   return (
     <section className="mainSection">
       <Navbar />
-      <header className="pageHeader">
-        <h2>Sign Up</h2>
-      </header>
-      <article className="card createChar">
-        <div className="createCharFields">
-          <div className="input">
-            <label htmlFor="username">Name: </label>
+      <div className="Login">
+        <article>
+          <center>
+            <h2 className="SignUpHeader">Sign Up</h2>
+          </center>
+          <div className="createCharFields">
+            <label htmlFor="username">Username: </label>
             <input
               name="username"
               value={username}
@@ -83,8 +93,6 @@ const Signup = (props) => {
             {usernameError ? (
               <span className="errorMsg">{usernameError}</span>
             ) : null}
-          </div>
-          <div className="input">
             <label htmlFor="password">Password: </label>
             <input
               name="password"
@@ -96,30 +104,30 @@ const Signup = (props) => {
               <span className="errorMsg">{passwordError}</span>
             ) : null}
           </div>
-        </div>
-        <div className="createCharFields">
-          <label htmlFor="password2">Confirm: </label>
-          <input
-            name="password2"
-            type="password"
-            value={password2}
-            onChange={password2OnChange}
-          />
-          {password2Error ? (
-            <span className="errorMsg">{password2Error}</span>
-          ) : null}
-        </div>
-        <div className="signup">
-          <Link to="/" className="link">
-            Login
-          </Link>
-          <button type="button" className="btnMain" onClick={SignupUser}>
-            Create
-          </button>
-        </div>
-      </article>
+          <div className="createCharFields">
+            <label htmlFor="password2">Confirm: </label>
+            <input
+              name="password2"
+              type="password"
+              value={password2}
+              onChange={password2OnChange}
+            />
+            {password2Error ? (
+              <span className="errorMsg">{password2Error}</span>
+            ) : null}
+          </div>
+          <div className="signup">
+            <Link to="/" className="link">
+              Login
+            </Link>
+            <button type="button" className="btnMain" onClick={SignupUser}>
+              Sign Up
+            </button>
+          </div>
+        </article>
+      </div>
     </section>
   );
 };
 
-export default withRouter(Signup);
+export default connect(null, mapDispatchToProps)(Signup);
