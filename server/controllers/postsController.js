@@ -7,6 +7,7 @@ postsController.getAllPosts = (req, res, next) => {
     SELECT * FROM posts
     ORDER BY _id DESC`;
   db.query(query).then((data) => {
+    //console.log(data.rows.votes);
     res.locals.allPosts = data.rows;
     return next();
   });
