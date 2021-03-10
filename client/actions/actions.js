@@ -22,7 +22,7 @@ export const upVote = (votes, postId, userId) => (dispatch) => {
     userId: userId
   }
   //endpoint TBD
-  fetch('/posts', {
+  fetch('/posts/upvote', {
     method: 'POST',
     headers: { 'Content-Type': 'Application/JSON' },
     body: JSON.stringify(reqBody),
