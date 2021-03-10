@@ -7,3 +7,4 @@ export const UPDATE_BODY = 'UPDATE_BODY';
 export const SAVE_POST = 'SAVE_POST';
 
 export const UPVOTE = 'UPVOTE';
+export const DOWNVOTE = 'DOWNVOTE';

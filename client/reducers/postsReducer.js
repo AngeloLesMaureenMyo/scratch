@@ -20,6 +20,7 @@ const postsReducer = (state = initialState, action) => {
   case types.UPDATE_BODY: {
     return { ...state, newPostBody: action.payload };
   }
+ 
   case types.SAVE_POST: {
     const newPostList = [action.payload, ...state.posts];
     return { ...state, posts: newPostList };
@@ -27,8 +28,15 @@ const postsReducer = (state = initialState, action) => {
   //UPVOTE is copy of SAVE_POST for now///////////
   case types.UPVOTE: {
     const newPostList = [action.payload, ...state.posts];
-    return { ...state, posts: newPostList };
+    return { ...state, posts: action.payload };
   }
+  
+  case types.DOWNVOTE: {
+    const newPostList = [action.payload, ...state.posts];
+    return { ...state, posts: action.payload };
+  }
+  
+
   default: {
     return state;
   }
