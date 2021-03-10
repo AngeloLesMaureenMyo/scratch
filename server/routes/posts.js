@@ -11,7 +11,7 @@ router.post(
   postsController.userVotes,
   postsController.updateUserVotes,
   (req, res) => {
-    console.log('you changed the vote count===============', res.locals.allPosts);
+    // console.log('you changed the vote count===============', res.locals.allPosts);
     return res.status(200).json({
       allPosts: res.locals.allPosts,
       updatedUser: res.locals.updatedUser,
@@ -39,7 +39,7 @@ router.post(
   '/',
   postsController.createPost,
   (req, res) => {
-    console.log('you created a post');
+    // console.log('you created a post');
     res.status(200).json(res.locals.newPost);
   },
 );

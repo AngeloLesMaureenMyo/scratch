@@ -31,7 +31,7 @@ authController.create = (req, res, next) => {
 
     //SAVE TO DB
     db.query(query, [username, hash]).then((data) => {
-      console.log('log from inside authController.create: ', data.rows[0]);
+      // console.log('log from inside authController.create: ', data.rows[0]);
       // GET USER ENTRY BACK FROM DB, store in res.locals
       const user = {
         username: data.rows[0].username,

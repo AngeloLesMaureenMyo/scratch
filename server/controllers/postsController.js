@@ -29,14 +29,14 @@ postsController.createPost = (req, res, next) => {
 
 postsController.upvotePost = (req, res, next) => {
   const { votes, postId, userId } = req.body;
-  console.log('STACY testing12345')
+  // console.log('STACY testing12345')
   const query = {
     text: 'UPDATE posts SET votes = $1 WHERE _id = $2 RETURNING * ',
     values: [votes, postId],
   };
 
   db.query(query).then((data) => {
-    console.log('ROWWWWWS: ', data.rows);
+    // console.log('ROWWWWWS: ', data.rows);
     res.locals.increase = true;
     return next();
   });
@@ -52,7 +52,7 @@ postsController.downvotePost = (req, res, next) => {
   };
   
   db.query(query).then((data) => {
-    console.log('ROWWWWWS: ', data.rows);
+    // console.log('ROWWWWWS: ', data.rows);
     res.locals.increase = false;
     return next();
   });
