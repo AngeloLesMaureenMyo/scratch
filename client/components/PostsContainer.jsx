@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getPosts } from '../actions/actions';
+import { getPosts, upVote } from '../actions/actions';
 import Post from './Post.jsx';
 import PostForm from './PostForm.jsx';
 import Navbar from './Navbar.jsx';
+
 
 const mapStateToProps = (state) => {
   //
@@ -29,6 +30,9 @@ class PostsContainer extends Component {
     if (Array.isArray(this.props.posts.posts)) {
       return this.props.posts.posts.map((post, i) => (
         <Post
+          upVoteFunc={this.props.upVote}
+          votes={post.votes}
+          postId={post._id}
           key={`Post ${i}`}
           title={post.title}
           body={post.body[301] ? post.body = post.body.slice(0, 300) : post.body}
@@ -42,9 +46,11 @@ class PostsContainer extends Component {
   render() {
     return (
       <center>
-        <Navbar />
+        <Navbar />      
         <center className="PostsContainer">
-          {this.renderPosts()}
+          <div className='PostsOnly custom-scrollbar'>
+            {this.renderPosts()}
+          </div>
           <PostForm />
         </center>
       </center>
@@ -52,4 +58,6 @@ class PostsContainer extends Component {
   }
 }
 
-export default connect(mapStateToProps, { getPosts })(PostsContainer);
+//not sure why to export functions but have added upVote
+
+export default connect(mapStateToProps, { getPosts, upVote })(PostsContainer);

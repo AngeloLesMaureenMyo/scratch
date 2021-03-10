@@ -24,6 +24,11 @@ const postsReducer = (state = initialState, action) => {
     const newPostList = [action.payload, ...state.posts];
     return { ...state, posts: newPostList };
   }
+  //UPVOTE is copy of SAVE_POST for now///////////
+  case types.UPVOTE: {
+    const newPostList = [action.payload, ...state.posts];
+    return { ...state, posts: newPostList };
+  }
   default: {
     return state;
   }
