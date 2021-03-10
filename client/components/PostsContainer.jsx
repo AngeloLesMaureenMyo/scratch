@@ -39,8 +39,8 @@ class PostsContainer extends Component {
           postId={post._id}
           key={`Post ${i}`}
           title={post.title}
-          // body={post.body.length < 300 ? post.body = post.body.slice(0, 300) : post.body}
-          body={post.body}
+          body={post.body[301] ? post.body = post.body.slice(0, 300) : post.body}
+          // body={post.body}
           userId={post.user_id}
           styling={post.user_id === this.props.userId ? 'MyPost' : null}
         />

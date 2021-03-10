@@ -29,56 +29,34 @@ postsController.createPost = (req, res, next) => {
 
 postsController.upvotePost = (req, res, next) => {
   const { votes, postId, userId } = req.body;
-  console.log('votes:', votes, 'postId:', postId, 'userId:', userId);
-
-  // const query = `
-  //       UPDATE posts
-  //       SET votes = 
-  //       WHERE _id = 
-  //       RETURNING *`;
 
   const query = {
     text: 'UPDATE posts SET votes = $1 WHERE _id = $2 RETURNING * ',
     values: [votes, postId],
   };
 
-  // id: data.rows[0]._id,
-
-  // db.query(query, [votes, postId]).then((data) => {
   db.query(query).then((data) => {
     console.log('ROWWWWWS: ', data.rows);
-    // res.locals.votes = data.rows;
-    res.locals.increase = true;
-    // return next();
-  });
-
-  db.query('SELECT * FROM posts ORDER BY _id DESC').then((data) => {
-    res.locals.votes = data.rows;
     res.locals.increase = true;
     return next();
   });
-  // .catch(err => console.log('upvote error', err));
+
 };
 
 postsController.downvotePost = (req, res, next) => {
   const { votes, postId, userId } = req.body;
-  console.log('votes:', votes, 'postId:', postId, 'userId:', userId);
 
   const query = {
     text: 'UPDATE posts SET votes = $1 WHERE _id = $2 RETURNING * ',
     values: [votes, postId],
   };
-
+  
   db.query(query).then((data) => {
     console.log('ROWWWWWS: ', data.rows);
     res.locals.increase = false;
-  });
-
-  db.query('SELECT * FROM posts ORDER BY _id DESC').then((data) => {
-    res.locals.votes = data.rows;
-    res.locals.increase = false;
     return next();
   });
+
 };
 
 postsController.userVotes = (req, res, next) => {}
