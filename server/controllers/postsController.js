@@ -38,7 +38,6 @@ postsController.upvotePost = (req, res, next) => {
   //       RETURNING *`;
 
   const query = {
-    // name: 'nipple',
     text: 'UPDATE posts SET votes = $1 WHERE _id = $2 RETURNING * ',
     values: [votes, postId],
   };
@@ -46,15 +45,14 @@ postsController.upvotePost = (req, res, next) => {
   // id: data.rows[0]._id,
 
   // db.query(query, [votes, postId]).then((data) => {
-    db.query(query).then((data) => {
+  db.query(query).then((data) => {
     console.log('ROWWWWWS: ', data.rows);
     // res.locals.votes = data.rows;
     res.locals.increase = true;
     // return next();
   });
 
-  db.query('SELECT * FROM posts').then((data) => {
-    // console.log('ROWWWWWS:=================================== ', data.rows);
+  db.query('SELECT * FROM posts ORDER BY _id DESC').then((data) => {
     res.locals.votes = data.rows;
     res.locals.increase = true;
     return next();
@@ -64,41 +62,48 @@ postsController.upvotePost = (req, res, next) => {
 
 postsController.downvotePost = (req, res, next) => {
   const { votes, postId, userId } = req.body;
-  console.log(votes, postId, userId);
+  console.log('votes:', votes, 'postId:', postId, 'userId:', userId);
 
-  const query = `
-        INSERT INTO posts(votes, _id)
-        VALUES($1 $2)
-        RETURNING posts`;
+  const query = {
+    text: 'UPDATE posts SET votes = $1 WHERE _id = $2 RETURNING * ',
+    values: [votes, postId],
+  };
 
-  db.query(query, [votes, postId]).then((data) => {
+  db.query(query).then((data) => {
     console.log('ROWWWWWS: ', data.rows);
+    res.locals.increase = false;
+  });
+
+  db.query('SELECT * FROM posts ORDER BY _id DESC').then((data) => {
     res.locals.votes = data.rows;
     res.locals.increase = false;
     return next();
   });
 };
 
-postsController.userVotes = (req, res, next) => {
-  console.log('userVotes');
-  // let num;
-  // if (res.locals.increase === true) num = 1;
-  // else num = -1;
+postsController.userVotes = (req, res, next) => {}
+/*
+  const { votes, postId, userId } = req.body;
+  console.log(votes, postId, userId);
 
-  // const { votes, postId, userId } = req.body;
-  // console.log(votes, postId, userId);
+  let num;
+  if (res.locals.increase === true) num = 1;
+  else num = -1;
+  const query = `
+        INSERT INTO posts(votes, _id)
+        VALUES($1 $2)
+        RETURNING *`;
 
-  // const query = `
-  //       INSERT INTO posts(votes, _id)
-  //       VALUES($1 $2)
-  //       RETURNING *`;
+  db.query(query, [votes, postId]).then((data) => {
+    console.log('ROWWWWWS: ', data.rows);
+    res.locals.votes = data.rows;
+    return next();
+  });
 
-  // db.query(query, [votes, postId]).then((data) => {
-  //   console.log('ROWWWWWS: ', data.rows);
-  //   res.locals.votes = data.rows;
-  //   return next();
-  // });
+  
+  
 };
+*/
 
 /*
 const reqBody = {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Post({ title, body, styling, votes, postId, userId, upVoteFunc }) {
+export default function Post({ title, body, styling, votes, postId, userId, upVoteFunc, downVoteFunc }) {
   console.log(styling);
   return (
     <div className={`Post ${styling}`}>
@@ -10,8 +10,24 @@ export default function Post({ title, body, styling, votes, postId, userId, upVo
       </div>
       <div className='ButtonsAndCounter'>
         <div className='ButtonsContainer'>
-          <button type="button" className="upVoteButton" id="upvote" onClick={() => {upVoteFunc(votes, postId, userId)}}>up</button>
-          <button type="button" className="downVoteButton" id="downvote" onClick={() => {}}>down</button>
+          <button 
+          type="button" 
+          className="upVoteButton" 
+          id="upvote" 
+          onClick={(e) => { 
+            e.preventDefault(); 
+            upVoteFunc(votes, postId, userId)
+          }
+            }>up</button>
+          <button 
+          type="button" 
+          className="downVoteButton" 
+          id="downvote" 
+          onClick={(e) => {
+            e.preventDefault();
+            downVoteFunc(votes, postId, userId)
+          }
+            }>down</button>
         </div>
         <p className="votesCounter" id="votes">#of votes: {votes}</p>
       </div>

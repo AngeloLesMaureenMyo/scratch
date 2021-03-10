@@ -45,14 +45,13 @@ export const updateBody = (newBody) => ({
 });
 
 export const upVote = (votes, postId, userId) => (dispatch) => {
-  //post request to backend
-  console.log('upvote fired', votes, postId, userId)
+ 
   const reqBody = {
     votes: votes + 1,
     postId: postId,
     userId: userId
   };
-  //endpoint TBD
+
 
   fetch('/posts/upvote', {
     method: 'POST',
@@ -61,7 +60,7 @@ export const upVote = (votes, postId, userId) => (dispatch) => {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
+      // console.log(data);
       dispatch({ type: types.UPVOTE, payload: data });
     })
     .catch((e) => console.log(e));
@@ -71,20 +70,20 @@ export const downVote = (votes, postId, userId) => (dispatch) => {
   //post request to backend
   console.log('downvote fired', votes, postId, userId)
   const reqBody = {
-    votes: votes + 1,
+    votes: votes - 1,
     postId: postId,
     userId: userId
   };
   //endpoint TBD
-  fetch('/downvote', {
+  fetch('/posts/downvote', {
     method: 'POST',
     headers: { 'Content-Type': 'Application/JSON' },
     body: JSON.stringify(reqBody),
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
-      dispatch({ type: types.UPVOTE, payload: data });
+      // console.log(data);
+      dispatch({ type: types.DOWNVOTE, payload: data });
     })
     .catch((e) => console.log(e));
 };

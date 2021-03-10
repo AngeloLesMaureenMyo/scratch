@@ -13,8 +13,13 @@ class Navbar extends Component {
 
     return (
       <div className="Navbar">
+        <div>
         {user ? <a href="/auth/logout">Logout</a> : <Link to="/">Log in</Link>}
         {user ? <p>Welcome back, {user.username}</p> : null}
+        </div>
+        <div>
+          
+        </div>
       </div>
     );
   }

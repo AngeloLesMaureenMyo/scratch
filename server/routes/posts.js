@@ -5,23 +5,23 @@ const router = express.Router();
 
 router.post(
   '/upvote',
-  postsController.getAllPosts,
+  // postsController.getAllPosts,
   postsController.upvotePost,
-  postsController.userVotes,
+  // postsController.userVotes,
   (req, res) => {
     console.log('you changed the vote count');
-    res.status(200).json(res.locals.votes);
+    return res.status(200).json(res.locals.votes);
   },
 );
 
 router.post(
   '/downvote',
-  postsController.getAllPosts,
+  // postsController.getAllPosts,
   postsController.downvotePost,
-  postsController.userVotes,
+  // postsController.userVotes,
   (req, res) => {
     console.log('you changed the vote count');
-    res.status(200).json(res.locals.votes);
+    return res.status(200).json(res.locals.votes);
   },
 );
 
