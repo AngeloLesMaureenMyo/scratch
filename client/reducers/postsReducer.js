@@ -2,6 +2,8 @@ import * as types from '../constants/actionTypes';
 
 const initialState = {
   posts: [],
+  activeThreadID: 270,
+  alias: 'Turtle',
   newPostTitle: '',
   newPostBody: '',
 };
@@ -12,9 +14,9 @@ const postsReducer = (state = initialState, action) => {
       return { ...state, posts: action.payload };
       //   return { ...state, posts: [{ title: 'hello', body: 'i am a post' }] };
     }
-    case types.UPDATE_TITLE: {
-      return { ...state, newPostTitle: action.payload };
-    }
+    // case types.UPDATE_TITLE: {
+    //   return { ...state, newPostTitle: action.payload };
+    // }
     case types.UPDATE_BODY: {
       return { ...state, newPostBody: action.payload };
     }

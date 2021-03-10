@@ -25,17 +25,35 @@ class PostsContainer extends Component {
     this.props.getPosts();
   }
 
+  renderThread(feedPostID, alias) {
+    // console.log(this.props.posts.activeThreadID)
+    console.log(feedPostID)
+    if (this.props.posts.activeThreadID === feedPostID) {
+    return (
+      // dummy ThreadContainer, to be replaced
+      // <div>ThreadContainer</div>
+      // <Post alias={alias} body={`I am a ThreadContainer placeholder. FeedPostID is ${feedPostID}`} />
+      <ThreadContainer alias={alias} feedPostID={feedPostID}/>
+    )}
+  }
+
   renderPosts() {
     if (Array.isArray(this.props.posts.posts)) {
-      return this.props.posts.posts.map((post, i) => (
-        <Post
+      return this.props.posts.posts.map((post, i) => {
+        return(
+        <div>
+          <Post
           key={`Post ${i}`}
-          title={post.title}
+          alias={post.alias}
           body={post.body}
+          feedPostID={post._id}
+          datetime={post.createdat}
           userId={post.user_id}
           styling={post.user_id === this.props.userId ? 'MyPost' : null}
-        />
-      ));
+          />
+          {this.renderThread(post._id, post.alias)}
+        </div>
+      )});
     }
   }
 
