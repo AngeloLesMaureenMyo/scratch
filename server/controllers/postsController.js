@@ -7,7 +7,7 @@ postsController.getAllPosts = async (req, res, next) => {
   const query = `
     SELECT * FROM posts p
     WHERE p.parent_id = 0`;
-  await db.query(query).then((data) => {
+  await db.query(query)((data) => {
     res.locals.allPosts = data.rows;
   });
 }catch(err){
@@ -25,9 +25,8 @@ postsController.getThreadPosts = async (req, res, next) => {
   const query = `
   SELECT * FROM posts p
   WHERE p.parent_id = ${req.body.postId}`;
-  db.query(query).then((data) => {
+ await db.query(query)((data) => {
     res.locals.threadPosts = data.rows;
-    
   })
 }catch(err){
   next({
