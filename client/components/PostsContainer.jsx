@@ -31,9 +31,9 @@ class PostsContainer extends Component {
     if (this.props.posts.activeThreadID === feedPostID) {
     return (
       // dummy ThreadContainer, to be replaced
-      // <div>ThreadContainer</div>
+      <div>ThreadContainer</div>
       // <Post alias={alias} body={`I am a ThreadContainer placeholder. FeedPostID is ${feedPostID}`} />
-      <ThreadContainer alias={alias} feedPostID={feedPostID}/>
+      // <ThreadContainer alias={alias} feedPostID={feedPostID}/>
     )}
   }
 

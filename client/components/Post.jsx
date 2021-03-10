@@ -10,13 +10,13 @@ function renderThread(feedPostID) {
   )
 }
 
-export default function Post({ title, body, datetime, feedPostID, styling }) {
+export default function Post({ alias, body, datetime, feedPostID, styling }) {
   // console.log(styling);
   // to update to display how old (in minutes if less than a day) the posts are
   let date = datetime;
   return (
     <div className={`Post ${styling}`}>
-      <h4>{title}:</h4>
+      <h4>{alias}:</h4>
       <p>{body}</p>
       <time>{date}</time>
       <br></br>
