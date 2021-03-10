@@ -27,4 +27,85 @@ postsController.createPost = (req, res, next) => {
   });
 };
 
+postsController.upvotePost = (req, res, next) => {
+  const { votes, postId, userId } = req.body;
+  console.log('votes:', votes, 'postId:', postId, 'userId:', userId);
+
+  // const query = `
+  //       UPDATE posts
+  //       SET votes = 
+  //       WHERE _id = 
+  //       RETURNING *`;
+
+  const query = {
+    // name: 'nipple',
+    text: 'UPDATE posts SET votes = $1 WHERE _id = $2 RETURNING * ',
+    values: [votes, postId],
+  };
+
+  // id: data.rows[0]._id,
+
+  // db.query(query, [votes, postId]).then((data) => {
+    db.query(query).then((data) => {
+    console.log('ROWWWWWS: ', data.rows);
+    // res.locals.votes = data.rows;
+    res.locals.increase = true;
+    // return next();
+  });
+
+  db.query('SELECT * FROM posts').then((data) => {
+    // console.log('ROWWWWWS:=================================== ', data.rows);
+    res.locals.votes = data.rows;
+    res.locals.increase = true;
+    return next();
+  });
+  // .catch(err => console.log('upvote error', err));
+};
+
+postsController.downvotePost = (req, res, next) => {
+  const { votes, postId, userId } = req.body;
+  console.log(votes, postId, userId);
+
+  const query = `
+        INSERT INTO posts(votes, _id)
+        VALUES($1 $2)
+        RETURNING posts`;
+
+  db.query(query, [votes, postId]).then((data) => {
+    console.log('ROWWWWWS: ', data.rows);
+    res.locals.votes = data.rows;
+    res.locals.increase = false;
+    return next();
+  });
+};
+
+postsController.userVotes = (req, res, next) => {
+  console.log('userVotes');
+  // let num;
+  // if (res.locals.increase === true) num = 1;
+  // else num = -1;
+
+  // const { votes, postId, userId } = req.body;
+  // console.log(votes, postId, userId);
+
+  // const query = `
+  //       INSERT INTO posts(votes, _id)
+  //       VALUES($1 $2)
+  //       RETURNING *`;
+
+  // db.query(query, [votes, postId]).then((data) => {
+  //   console.log('ROWWWWWS: ', data.rows);
+  //   res.locals.votes = data.rows;
+  //   return next();
+  // });
+};
+
+/*
+const reqBody = {
+  votes: votes + 1,
+  postId: postId,
+  userId: userId
+}
+*/
+
 module.exports = postsController;

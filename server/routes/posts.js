@@ -4,6 +4,28 @@ const authController = require('../controllers/authController');
 const router = express.Router();
 
 router.post(
+  '/upvote',
+  postsController.getAllPosts,
+  postsController.upvotePost,
+  postsController.userVotes,
+  (req, res) => {
+    console.log('you changed the vote count');
+    res.status(200).json(res.locals.votes);
+  },
+);
+
+router.post(
+  '/downvote',
+  postsController.getAllPosts,
+  postsController.downvotePost,
+  postsController.userVotes,
+  (req, res) => {
+    console.log('you changed the vote count');
+    res.status(200).json(res.locals.votes);
+  },
+);
+
+router.post(
   '/',
   postsController.createPost,
   (req, res) => {
