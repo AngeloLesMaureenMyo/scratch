@@ -47,7 +47,14 @@ Ready the input/output
 */
 io.on('connection', (socket) => {
   console.log('$$$$$$$$$$$$$$$$$ IO.ON INVOKED!!! / a user connected YOUNG MONEY $$$$$$$$$$$$$$$$$');
-  socket.on('disconnect', () => {console.log("farewell!!!!!! user OUT DIS BITCH")});
+  // socket.on('join', function(data) { console.log(data) });
+  socket.on('disconnect', () => {
+    console.log("farewell!!!!!! user OUT DIS BITCH");
+  });
+  // socket.on('post', (post) => {
+  //   console.log('POST!!!!!!');
+  //   io.sockets.emit('posted:', post);
+  // });
 });
 
 /*
