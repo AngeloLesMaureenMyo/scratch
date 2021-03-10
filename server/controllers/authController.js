@@ -13,7 +13,7 @@ const authController = {};
 
 authController.create = (req, res, next) => {
   const { username, password } = req.body;
-
+  
   if (!username || !password) {
     return next({
       log: 'Error in authController.create',
@@ -23,6 +23,7 @@ authController.create = (req, res, next) => {
   }
 
   bcrypt.hash(password, saltRounds).then((hash) => {
+    
     const query = `
         INSERT INTO users(username, password)
         VALUES ($1, $2)
