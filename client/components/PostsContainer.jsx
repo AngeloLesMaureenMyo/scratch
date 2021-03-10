@@ -35,6 +35,7 @@ class PostsContainer extends Component {
         <Post
           upVoteFunc={this.props.upVote}
           downVoteFunc={this.props.downVote}
+          currentUserId={this.props.userId}
           votes={post.votes}
           postId={post._id}
           key={`Post ${i}`}
@@ -42,9 +43,9 @@ class PostsContainer extends Component {
           body={post.body[301] ? post.body = post.body.slice(0, 300) : post.body}
           // body={post.body}
           userId={post.user_id}
-          styling={post.user_id === this.props.userId ? 'MyPost' : null}
+          styling={post.user_id === this.props.userId ? 'MyPost' : 'StandardPost'}
         />
-      )).reverse();
+      ))
     }
   }
 
@@ -53,10 +54,12 @@ class PostsContainer extends Component {
       <center>
         <Navbar />      
         <center className="PostsContainer">
-          <div className='PostsOnly custom-scrollbar'>
+          <div className='PostsOnly'>
             {this.renderPosts()}
           </div>
+
           <PostForm />
+
         </center>
       </center>
     );
