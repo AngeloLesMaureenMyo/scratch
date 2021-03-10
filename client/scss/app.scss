@@ -151,10 +151,12 @@ body {
   color: #2a363b;
   width: 70vw;
 }
+
 .PostsOnly {
   // display:flex;
   flex-direction: column-reverse;
   height: 700px;
+
 }
 
 ::-webkit-scrollbar {

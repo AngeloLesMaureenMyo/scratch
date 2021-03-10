@@ -4,6 +4,8 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
 const app = express();
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
 
 const authRouter = require('./routes/auth');
 const postsRouter = require('./routes/posts');
@@ -41,6 +43,13 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 /*
+Ready the input/output
+*/
+io.on('connection', (socket) => {
+  console.log('$$$$$$$$$$$$$$$$$ IO.ON INVOKED!!! / a user connected $$$$$$$$$$$$$$$$$');
+});
+
+/*
 catch-all route handler for any requests to an unknown route
 */
 app.get('*', (req, res) => {
@@ -64,6 +73,6 @@ app.use((err, req, res, next) => {
 /*
 start server
 */
-app.listen(3000);
+http.listen(3000, () => {console.log('Listening on Port 3000')});
 
 module.exports = app;

@@ -45,8 +45,10 @@ export const updateBody = (newBody) => ({
   payload: newBody,
 });
 
+
 export const upVote = (votes, postId, userId, currentUser) => (dispatch) => {
   console.log('upvote fired', votes, postId, userId, currentUser)
+
   const reqBody = {
     votes: votes + 1,
     postId: postId,
