@@ -7,6 +7,7 @@ const mapStateToProps = (state) => {
     newPostTitle: state.posts.newPostTitle,
     newPostBody: state.posts.newPostBody,
     user: state.scratch.user,
+    // alias: state.posts.alias,
   };
 };
 
@@ -17,7 +18,7 @@ const mapDispatchToProps = (dispatch) => {
     handleSubmit: (e, title, body, id) => {
       e.preventDefault();
       if (!title || !body) return;
-
+      // if (!alias || !body) return;
       dispatch(savePost(title, body, id));
     },
   };
