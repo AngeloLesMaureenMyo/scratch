@@ -29,7 +29,7 @@ postsController.createPost = (req, res, next) => {
 
 postsController.upvotePost = (req, res, next) => {
   const { votes, postId, userId } = req.body;
-
+  console.log('STACY testing12345')
   const query = {
     text: 'UPDATE posts SET votes = $1 WHERE _id = $2 RETURNING * ',
     values: [votes, postId],
@@ -59,7 +59,52 @@ postsController.downvotePost = (req, res, next) => {
 
 };
 
-postsController.userVotes = (req, res, next) => {}
+postsController.userVotes = (req, res, next) => {
+  const { votes, userId } = req.body;
+
+  const query = {
+    text: 'SELECT votes FROM users WHERE _id = $1',
+    values: [userId],
+  }
+  db.query(query)
+    .then((data) => {
+      res.locals.currentVotes = data.rows[0].votes;
+      return next()
+    })
+    .catch((err) => {
+      return next({
+        message: 'error getting votes from user in uservotes middleware',
+        error: err,
+      });
+    })
+}
+
+postsController.updateUserVotes = (req, res, next) => {   
+  const { votes, userId } = req.body; 
+  // console.log('currentVotes==========================', res.locals.currentVotes)
+  if (res.locals.increase === true){
+    res.locals.currentVotes += 1;
+  }else{
+    res.locals.currentVotes -= 1;
+  }
+
+  const queryToUpdateVotes = {
+    text: 'UPDATE users SET votes = $1 WHERE _id = $2 RETURNING *',
+    values: [res.locals.currentVotes, userId],
+  }
+  db.query(queryToUpdateVotes)
+    .then((data) =>{
+      res.locals.updatedUser = data.rows[0]
+      // console.log('querytoupdateuser==========================', data.rows[0])
+      return next();
+    })
+    .catch((err) => {
+      return next({
+        message: 'error updating the votes for user',
+        error: err,
+      });
+    });
+}
 /*
   const { votes, postId, userId } = req.body;
   console.log(votes, postId, userId);
@@ -82,7 +127,6 @@ postsController.userVotes = (req, res, next) => {}
   
 };
 */
-
 /*
 const reqBody = {
   votes: votes + 1,
