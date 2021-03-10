@@ -44,7 +44,7 @@ class PostsContainer extends Component {
           userId={post.user_id}
           styling={post.user_id === this.props.userId ? 'MyPost' : null}
         />
-      ));
+      )).reverse();
     }
   }
 
