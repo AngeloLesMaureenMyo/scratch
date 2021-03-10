@@ -15,7 +15,7 @@ router.post(
 
 router.get(
   '/',
-  //authController.verifyUser,
+  authController.verifyUser,
   postsController.getAllPosts,
   (req, res) => {
     res.status(200).json(res.locals.allPosts);
