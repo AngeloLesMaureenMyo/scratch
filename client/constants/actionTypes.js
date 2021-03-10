@@ -8,3 +8,5 @@ export const SAVE_POST = 'SAVE_POST';
 
 export const UPVOTE = 'UPVOTE';
 export const DOWNVOTE = 'DOWNVOTE';
+
+export const UPDATE_USER_VOTES = 'UPDATE_USER_VOTES'
