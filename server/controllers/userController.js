@@ -3,18 +3,16 @@ const userController = {};
 
 userController.createAlias = (req, res, next) => {
   const getRandWordFrom = (table) => {
-    return `SELECT word FROM ${table} ORDER BY RANDOM() LIMIT 1`;
+    return `SELECT word FROM ${table} ORDER BY RANDOM() LIMIT 2`;
   };
 
-  const adverb = getRandWordFrom('adverbs');
   const adjective = getRandWordFrom('adjectives');
-  const animal = getRandWordFrom('animals');
+  const noun = getRandWordFrom('nouns');
 
-  Promise.all([db.query(adverb), db.query(adjective), db.query(animal)])
+  Promise.all([db.query(adjective), db.query(noun)])
     .then((data) => {
-      const words = data.map((record) => record.rows[0].word);
-      res.locals.alias = `${words[0]} ${words[1]} ${words[2]}`;
-      console.log(res.locals.alias);
+      const rows = data.map((record) => record.rows);
+      res.locals.alias = `${rows[0][0].word} ${rows[0][1].word} ${rows[1][0].word}`;
       return next();
     })
     .catch((err) => {
