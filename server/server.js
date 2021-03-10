@@ -56,6 +56,7 @@ app.use((err, req, res, next) => {
     status: 500,
     message: 'An error occurred',
   };
+  console.log('inside global error handler')
   const error = { ...defaultErr, ...err };
   return res.status(error.status).json(error.message);
 });
