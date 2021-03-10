@@ -1,25 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updateBody, savePost } from '../actions/actions';
+import { updateTitle, updateBody, savePost } from '../actions/actions';
 
 const mapStateToProps = (state) => {
   return {
-    // newPostTitle: state.posts.newPostTitle,
+    newPostTitle: state.posts.newPostTitle,
     newPostBody: state.posts.newPostBody,
     user: state.scratch.user,
-    alias: state.posts.alias,
+    // alias: state.posts.alias,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // updateTitle: (value) => dispatch(updateTitle(value)),
+    updateTitle: (value) => dispatch(updateTitle(value)),
     updateBody: (value) => dispatch(updateBody(value)),
-    handleSubmit: (e, alias, body, id) => {
+    handleSubmit: (e, title, body, id) => {
       e.preventDefault();
-      // if (!title || !body) return;
-      if (!alias || !body) return;
-      dispatch(savePost(alias, body, id));
+      if (!title || !body) return;
+      // if (!alias || !body) return;
+      dispatch(savePost(title, body, id));
     },
   };
 };
@@ -32,16 +32,16 @@ class PostForm extends Component {
           onSubmit={(e) =>
             this.props.handleSubmit(
               e,
-              this.props.alias,
+              this.props.newPostTitle,
               this.props.newPostBody,
               this.props.user.id
             )
           }
         >
-          {/* <input
+          <input
             placeholder="Add a title"
             onChange={(e) => this.props.updateTitle(e.target.value)}
-          /> */}
+          />
           <br />
           <textarea
             placeholder="Add a body"

@@ -15,9 +15,9 @@ export const getPosts = () => (dispatch) => {
     });
 };
 
-export const savePost = (alias, body, id) => (dispatch) => {
+export const savePost = (title, body, id) => (dispatch) => {
   const reqBody = {
-    alias,
+    title,
     body,
     user_id: id,
   };
@@ -36,12 +36,17 @@ export const savePost = (alias, body, id) => (dispatch) => {
 };
 
 // to delete, as we won't be updating Title, it will be replaced with an assigned alias
-// export const updateTitle = (newTitle) => ({
-//   type: types.UPDATE_TITLE,
-//   payload: newTitle,
-// });
+export const updateTitle = (newTitle) => ({
+  type: types.UPDATE_TITLE,
+  payload: newTitle,
+});
 
 export const updateBody = (newBody) => ({
   type: types.UPDATE_BODY,
   payload: newBody,
+});
+
+export const updateActiveThreadID = (newID) => ({
+  type: types.UPDATE_ACTIVE_THREAD_ID,
+  payload: newID,
 });
