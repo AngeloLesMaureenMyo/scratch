@@ -21,4 +21,10 @@ router.get(
     res.status(200).json(res.locals.allPosts);
   }
 );
+/*  Gets all child posts to fill thread container when ---> onClick of button on post component  */
+router.get('/thread-posts', postsController.getThreadPosts, (req, res) => {
+  console.log('getting thread posts');
+  res.status(200).json(res.locals.threadPosts);
+});
+
 module.exports = router;
