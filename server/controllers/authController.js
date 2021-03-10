@@ -31,7 +31,7 @@ authController.create = (req, res, next) => {
 
     //SAVE TO DB
     db.query(query, [username, hash]).then((data) => {
-      console.log('log from inside authController.create: ', data.rows[0]);
+      // console.log('log from inside authController.create: ', data.rows[0]);
       // GET USER ENTRY BACK FROM DB, store in res.locals
       const user = {
         username: data.rows[0].username,
@@ -97,6 +97,31 @@ authController.verifyUser = (req, res, next) => {
     return next();
   });
 };
+authController.getUserData = (req, res, next) => {
+  const {username, id} = res.locals.user;
+
+  const query = {
+    text: 'SELECT * FROM users WHERE _id = $1',
+    values: [id]
+  }
+
+  db.query(query)
+    .then(data => {
+      const {_id, username, votes} = data.rows[0];
+      res.locals.user = {
+        id: _id,
+        username: username,
+        votes: votes
+      }
+      return next()
+    })
+    .catch(err=> {
+      return next({
+        message: 'Error getting user info in getUserData middleware in authController',
+        error: err
+      })
+    })
+}
 
 authController.addJWT = (req, res, next) => {
   const { username } = req.body;
