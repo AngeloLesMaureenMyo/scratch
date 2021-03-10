@@ -1,15 +1,28 @@
-const { adverbs, adjectives, animals } = require('../utils/aliasWords');
+const db = require('../models/socialModels');
 const userController = {};
 
 userController.createAlias = (req, res, next) => {
-  const randIndex = (arrayLength) => {
-    return Math.floor(Math.random() * arrayLength);
+  const getRandWordFrom = (table) => {
+    return `SELECT word FROM ${table} ORDER BY RANDOM() LIMIT 1`;
   };
 
-  const adverb = adverbs[randIndex(adverbs.length)];
-  const adjective = adjectives[randIndex(adjectives.length)];
-  const animal = animals[randIndex(animals.length)];
+  const adverb = getRandWordFrom('adverbs');
+  const adjective = getRandWordFrom('adjectives');
+  const animal = getRandWordFrom('animals');
 
-  res.locals.alias = `${adverb} ${adjective} ${animal}`;
-  return next();
+  Promise.all([db.query(adverb), db.query(adjective), db.query(animal)])
+    .then((data) => {
+      const words = data.map((record) => record.rows[0].word);
+      res.locals.alias = `${words[0]} ${words[1]} ${words[2]}`;
+      console.log(res.locals.alias);
+      return next();
+    })
+    .catch((err) => {
+      return next({
+        error: err,
+        message: 'Error occurred in userController.createAlias',
+      });
+    });
 };
+
+module.exports = userController;
