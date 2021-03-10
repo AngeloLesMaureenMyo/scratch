@@ -11,7 +11,7 @@ router.post(
   authController.addJWT,
   userController.createAlias,
   (req, res) => {
-    res.status(200).json(res.locals.user);
+    res.status(200).json({ user: res.locals.user, alias: res.locals.alias });
   }
 );
 
@@ -21,7 +21,7 @@ router.post(
   authController.addJWT,
   userController.createAlias,
   (req, res) => {
-    res.status(200).json(res.locals.user);
+    res.status(200).json({ user: res.locals.user, alias: res.locals.alias });
   }
 );
 
