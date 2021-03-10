@@ -9,7 +9,7 @@ export const getPosts = () => (dispatch) => {
   fetch('/posts')
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
+      //console.log(data);
       dispatch({ type: types.GET_POSTS, payload: data });
     });
 };
@@ -28,8 +28,9 @@ export const savePost = (title, body, id) => (dispatch) => {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
+      //console.log(data);
       dispatch({ type: types.SAVE_POST, payload: data });
+    
     })
     .catch((e) => console.log(e));
 };
@@ -44,8 +45,8 @@ export const updateBody = (newBody) => ({
   payload: newBody,
 });
 
-export const upVote = (votes, postId, userId) => (dispatch) => {
- 
+export const upVote = (votes, postId, userId, currentUser) => (dispatch) => {
+  console.log('upvote fired', votes, postId, userId, currentUser)
   const reqBody = {
     votes: votes + 1,
     postId: postId,
@@ -60,15 +61,19 @@ export const upVote = (votes, postId, userId) => (dispatch) => {
   })
     .then((res) => res.json())
     .then((data) => {
-      // console.log(data);
-      dispatch({ type: types.UPVOTE, payload: data });
+      // console.log('updatedUser=======================', data);
+      if (userId === currentUser) {dispatch({ type: types.UPDATE_USER_VOTES, payload: data.updatedUser })}
+      // dispatch({ type: types.UPDATE_USER_VOTES, payload: data.updatedUser })
+      dispatch({ type: types.UPVOTE, payload: data.allPosts });
+      
+
     })
     .catch((e) => console.log(e));
 };
   //body of post request to include id of current post and id of post creator
-export const downVote = (votes, postId, userId) => (dispatch) => {
+export const downVote = (votes, postId, userId, currentUser) => (dispatch) => {
   //post request to backend
-  console.log('downvote fired', votes, postId, userId)
+  console.log('downvote fired', votes, postId, userId, currentUser)
   const reqBody = {
     votes: votes - 1,
     postId: postId,
@@ -83,7 +88,9 @@ export const downVote = (votes, postId, userId) => (dispatch) => {
     .then((res) => res.json())
     .then((data) => {
       // console.log(data);
-      dispatch({ type: types.DOWNVOTE, payload: data });
+      if (userId === currentUser) {dispatch({ type: types.UPDATE_USER_VOTES, payload: data.updatedUser })}
+      
+      dispatch({ type: types.DOWNVOTE, payload: data.allPosts });
     })
     .catch((e) => console.log(e));
 };

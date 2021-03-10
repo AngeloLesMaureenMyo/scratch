@@ -5,12 +5,17 @@ const router = express.Router();
 
 router.post(
   '/upvote', 
+  
   postsController.upvotePost,
   postsController.getAllPosts,
-  // postsController.userVotes,
+  postsController.userVotes,
+  postsController.updateUserVotes,
   (req, res) => {
-    console.log('you changed the vote count');
-    return res.status(200).json(res.locals.allPosts);
+    console.log('you changed the vote count===============', res.locals.allPosts);
+    return res.status(200).json({
+      allPosts: res.locals.allPosts,
+      updatedUser: res.locals.updatedUser,
+    });
   },
 );
 
@@ -18,10 +23,15 @@ router.post(
   '/downvote',
   postsController.downvotePost,
   postsController.getAllPosts,
+  postsController.userVotes,
+  postsController.updateUserVotes,
   // postsController.userVotes,
   (req, res) => {
     console.log('you changed the vote count');
-    return res.status(200).json(res.locals.allPosts);
+    return res.status(200).json({
+      allPosts: res.locals.allPosts,
+      updatedUser: res.locals.updatedUser,
+    });
   },
 );
 
