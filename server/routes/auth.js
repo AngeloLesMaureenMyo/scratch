@@ -33,6 +33,7 @@ router.get(
 router.get(
   '/check',
   authController.verifyUser,
+  authController.getUserData,
   (req, res) => {
     res.status(200).json(res.locals.user);
   },

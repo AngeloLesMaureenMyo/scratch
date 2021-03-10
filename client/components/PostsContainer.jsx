@@ -58,9 +58,13 @@ class PostsContainer extends Component {
             {this.renderPosts()}
           </div>
 
-          <PostForm />
-
+          {/* <div className="PostFormContainer"> */}
+          
+          {/* </div> */}
         </center>
+        <div className="PostFormContainer">
+        <PostForm />
+        </div>
       </center>
     );
   }

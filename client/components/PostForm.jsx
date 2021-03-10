@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { updateTitle, updateBody, savePost } from '../actions/actions';
+import Filter from 'bad-words';
+
+const filter = new Filter();
 
 const mapStateToProps = (state) => {
   return {
@@ -19,7 +22,7 @@ const mapDispatchToProps = (dispatch) => {
       e.target.reset();
       if (!title || !body) return;
 
-      dispatch(savePost(title, body, id));
+      dispatch(savePost(filter.clean(title), filter.clean(body), id));
     },
   };
 };
@@ -27,6 +30,7 @@ const mapDispatchToProps = (dispatch) => {
 class PostForm extends Component {
   render() {
     return (
+      
       <center className="PostForm">
         <form
           onSubmit={(e) =>
@@ -51,6 +55,7 @@ class PostForm extends Component {
           <button type="submit">Add Post</button>
         </form>
       </center>
+
     );
   }
 }

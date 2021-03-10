@@ -1,7 +1,9 @@
 import React from 'react';
 
+
 export default function Post({ title, body, styling, votes, postId, userId, upVoteFunc, downVoteFunc, currentUserId }) {
   //console.log(styling);
+  
   return (
     <div className={`Post ${styling}`}>
       <div className='TitleAndBody'>
@@ -35,13 +37,4 @@ export default function Post({ title, body, styling, votes, postId, userId, upVo
     
   );
 }
-
-//create upvote/downvote button for each post
-//display total upvote/downvote for each post
-//total should initiated at 0/increment for upvote/decrement for downvote
-
-//upvotes and downvots should persist after logout
-//function to handle clicks
-
-//create json file to store upvotes and downvotes to store post upvote and downvote
 
