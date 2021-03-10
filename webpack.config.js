@@ -13,7 +13,7 @@ module.exports = {
     publicPath: '/build/',
     proxy: [
       {
-        context: ['/auth', '/secret', '/posts'],
+        context: ['/auth', '/secret', '/posts', '.server.io'],
         target: 'http://localhost:3000',
       },
     ],

@@ -46,7 +46,8 @@ if (process.env.NODE_ENV === 'production') {
 Ready the input/output
 */
 io.on('connection', (socket) => {
-  console.log('$$$$$$$$$$$$$$$$$ IO.ON INVOKED!!! / a user connected $$$$$$$$$$$$$$$$$');
+  console.log('$$$$$$$$$$$$$$$$$ IO.ON INVOKED!!! / a user connected YOUNG MONEY $$$$$$$$$$$$$$$$$');
+  socket.on('disconnect', () => {console.log("farewell!!!!!! user OUT DIS BITCH")});
 });
 
 /*
