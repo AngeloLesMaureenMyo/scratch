@@ -45,7 +45,7 @@ export const updateBody = (newBody) => ({
 });
 
 export const upVote = (votes, postId, userId) => (dispatch) => {
- 
+
   const reqBody = {
     votes: votes + 1,
     postId: postId,
