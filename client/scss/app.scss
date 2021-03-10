@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Fira+Sans&display=swap');
 
+$primary-color:lighten( #fdb827, 15%);
+$secondary-color: rgb(114, 122, 167);
+$text-color: #23120b;
+$background-color: #f1f1f1; 
+
+
 * {
   margin: 0;
   padding: 0;
@@ -11,17 +17,17 @@
 
 html {
   font-size: 10px;
-  color: whitesmoke;
+  color: $background-color;
 }
 
 body {
-  background: #99b898;
+  background: $background-color;
 }
 
 .Navbar {
   height: 50px;
   width: 100vw;
-  background-color: #5e705d;
+  background-color: $secondary-color;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -30,12 +36,12 @@ body {
 
   a {
     text-decoration: none;
-    // color: whitesmoke;
-    color: whitesmoke;
+    // color: $background-color;
+    color: $background-color;
 
     font-size: 1.5rem;
     // border: 1px solid black;
-    // border-bottom: 1px solid whitesmoke;
+    // border-bottom: 1px solid $background-color;
     // margin-left: 25px;
   }
 }
@@ -52,7 +58,7 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 2rem;
-  color: rgb(123, 146, 122);
+  color: $text-color;
 
   input {
     margin: 10px;
@@ -67,15 +73,15 @@ body {
   }
   a {
     text-decoration: none;
-    color: whitesmoke;
+    color: $background-color;
     font-size: 2rem;
     // border: 1px solid black;
-    border-bottom: 1px solid whitesmoke;
+    border-bottom: 1px solid $background-color;
     margin-left: 25px;
   }
   button {
     background-color: #424d41;
-    color: whitesmoke;
+    color: $background-color;
     border: none;
     padding: 8px 20px;
     border-radius: 8px;
@@ -91,17 +97,25 @@ body {
 }
 
 .PostForm {
-  position: fixed;
+
+  position:fixed;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  background: #99b898;
+  background: $secondary-color;
   z-index: 5;
   padding-top: 15px;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 5px;
+  border-color: $text-color;
+  box-shadow: 0px 15px 75px 6px rgb(52, 66, 59);
+  margin-bottom: 15px;
 
   button {
-    background-color: #424d41;
-    color: whitesmoke;
+    background-color:$text-color;
+    color: $background-color;
     border: none;
     padding: 8px 20px;
     border-radius: 8px;
@@ -125,7 +139,7 @@ body {
     height: 70px;
     padding: 10px;
     font-size: 1.5rem;
-    background: #d7ffd6;
+    background: $primary-color;
   }
   textarea:focus {
     outline: none;
@@ -133,7 +147,7 @@ body {
   input {
     border: none;
     width: 70vw;
-    background: #d7ffd6;
+    background: $primary-color;
 
     border-radius: 3px;
     height: 30px;
@@ -146,16 +160,30 @@ body {
   }
 }
 
+// .PostFormContainer {
+//   border-width: 2px;
+//   border-style: solid;
+//   border-radius: 5px;
+//   padding: 5px;
+//   border-color: $text-color;
+//   box-shadow: 0px 0px 25px 10px rgb(52, 66, 59);
+// }
+
 .PostsContainer {
   margin-top: 20px;
   color: #2a363b;
   width: 70vw;
+ 
 }
 
 .PostsOnly {
   // display:flex;
+  
   flex-direction: column-reverse;
-  height: 700px;
+  max-height: 70vh;
+  overflow: initial;
+  color: $secondary-color;
+  
 
 }
 
@@ -180,7 +208,7 @@ body {
 }
 
 .MyPost {
-  color: rgb(98, 98, 189);
+  color:$text-color;
 
   h4 { 
     font-size: 12px;   
@@ -192,7 +220,7 @@ body {
   h4 { 
     font-size: 12px;   
   }
- 
+
 }
 
 .Post {
@@ -200,14 +228,19 @@ body {
   justify-content: space-between;
   align-items: center;
   // text-align: left;
+  margin-right: 5px;
+  margin-left: 5px;
   min-height: 60px;
   margin-bottom: 15px;
   font-size: 1.5rem;
   border-width: 2px;
-  border-style: solid;
+  border-style: none;
   border-radius: 5px;
+  // box-shadow: 0px 0px 2px 2px $secondary-color;
   padding: 5px;
-  border-color: rgb(123, 146, 122);
+  border-color: $text-color;
+  background-color: $primary-color;
+  background: $primary-color;
   
 
 }
@@ -217,6 +250,7 @@ body {
   text-align: left;
   justify-content: flex-start;
   flex-direction: column;
+  margin-left: 1.5vw;
   width: 90%;
   h4 {
     font-weight: 100;
@@ -231,17 +265,18 @@ body {
   justify-content: center;
   text-align: right;
   flex-wrap: nowrap;
+  //margin-right: ;
 }
 
 .ButtonsContainer {
   display: flex;
   flex-wrap: nowrap;
   button {
-    background-color: #addfa9;
-    color: whitesmoke;
+    background-color:$background-color;
+    color: $background-color;
     border: none;
     padding: 3px;
-    border-radius: 8px;
+    border-radius: 5px;
     font-size: 1.5rem;
     margin: 1px;
   }
@@ -270,4 +305,8 @@ body {
 .SignUpHeader {
   margin-bottom: 30px;
 
+}
+
+.break{
+  width: 10px;
 }
