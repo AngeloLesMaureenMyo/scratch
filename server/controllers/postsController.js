@@ -7,16 +7,16 @@ postsController.getAllPosts = async (req, res, next) => {
   const query = `
     SELECT * FROM posts p
     WHERE p.parent_id = 0`;
-  await db.query(query)((data) => {
+  await db.query(query, (err,data) => {
     res.locals.allPosts = data.rows;
+    return next()
   });
 }catch(err){
-  next({
+  return next({
   log: 'error at postController.getAllPosts',
   status: 401,
   message: 'failed to retrieve posts',
 })};
- next()
 };
 /*  Called in routes/posts.js on router.get('/thread-posts',...)
        -->Gets all child comments on a post  */
@@ -25,16 +25,16 @@ postsController.getThreadPosts = async (req, res, next) => {
   const query = `
   SELECT * FROM posts p
   WHERE p.parent_id = ${req.body.postId}`;
- await db.query(query)((data) => {
+ await db.query(query, (err, data) => {
     res.locals.threadPosts = data.rows;
-  })
+    return next();
+  });
 }catch(err){
-  next({
+  return next({
   log: 'error at postController.getThreadPosts' ,
   status: 401,
   message: 'failed to retrieve thread posts',
 })};
-  next();
 };
 
 postsController.createPost = (req, res, next) => {
