@@ -3,10 +3,15 @@ const postsController = require('../controllers/postsController');
 const authController = require('../controllers/authController');
 const router = express.Router();
 
-router.post('/', postsController.createPost, (req, res) => {
-  console.log('you created a post');
-  res.status(200).json(res.locals.newPost);
-});
+router.post(
+  '/',
+  authController.verifyUser,
+  postsController.createPost,
+  (req, res) => {
+    console.log('you created a post');
+    res.status(200).json(res.locals.newPost);
+  }
+);
 
 router.get(
   '/',
