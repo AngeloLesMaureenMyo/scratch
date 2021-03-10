@@ -16,6 +16,7 @@ const mapDispatchToProps = (dispatch) => {
     updateBody: (value) => dispatch(updateBody(value)),
     handleSubmit: (e, title, body, id) => {
       e.preventDefault();
+      e.target.reset();
       if (!title || !body) return;
 
       dispatch(savePost(title, body, id));

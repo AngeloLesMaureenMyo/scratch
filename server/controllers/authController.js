@@ -31,9 +31,15 @@ authController.create = (req, res, next) => {
 
     //SAVE TO DB
     db.query(query, [username, hash]).then((data) => {
-      console.log(data.rows[0]);
+      console.log('log from inside authController.create: ', data.rows[0]);
       // GET USER ENTRY BACK FROM DB, store in res.locals
-      res.locals.user = data.rows[0];
+      const user = {
+        username: data.rows[0].username,
+        id: data.rows[0]._id,
+      }
+
+      res.locals.user = user;
+
       return next();
     });
   });
@@ -44,7 +50,7 @@ authController.login = (req, res, next) => {
 
   // READ USER FROM DB
   const query = `
-    SELECT username, password, _id FROM users
+    SELECT username, password, _id, votes FROM users
     WHERE username = $1`;
 
   db.query(query, [username])
@@ -55,6 +61,8 @@ authController.login = (req, res, next) => {
           const user = {
             username: data.rows[0].username,
             id: data.rows[0]._id,
+            //
+            votes: data.rows[0].votes
           };
 
           res.locals.user = user;
@@ -83,8 +91,8 @@ authController.verifyUser = (req, res, next) => {
   // Verify Token
   jwt.verify(token, jwtSecret, (err, decoded) => {
     if (!decoded) return res.json();
-    const { username, id } = decoded;
-    res.locals.user = { username, id };
+    const { username, id, votes} = decoded;
+    res.locals.user = { username, id, votes};
 
     return next();
   });
@@ -92,9 +100,9 @@ authController.verifyUser = (req, res, next) => {
 
 authController.addJWT = (req, res, next) => {
   const { username } = req.body;
-  const { id } = res.locals.user;
+  const { id, votes } = res.locals.user;
   jwt.sign(
-    { username, id },
+    { username, id, votes },
     jwtSecret,
     {
       expiresIn: '1h',

@@ -7,19 +7,33 @@ const initialState = {
 
 const scratchReducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.AUTHENTICATE: {
-      // const isAuthenticated = action;
-      console.log(action.payload);
+  case types.AUTHENTICATE: {
+    // const isAuthenticated = action;
+    console.log('action payload==========', action.payload);
 
-      return {
-        ...state,
-        user: action.payload,
-      };
-    }
+    return {
+      ...state,
+      user: action.payload,
+    };
+  }
 
-    default: {
-      return state;
-    }
+  case types.UPDATE_USER_VOTES: {
+    // const isAuthenticated = action;
+    console.log('action payload==========', action.payload);
+    return {
+      ...state,
+      user: {
+        username: action.payload.username,
+        id: action.payload._id,
+        votes: action.payload.votes
+      },
+    };
+  }
+
+
+  default: {
+    return state;
+  }
   }
 };
 

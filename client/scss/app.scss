@@ -151,9 +151,12 @@ body {
   color: #2a363b;
   width: 70vw;
 }
+
 .PostsOnly {
+  // display:flex;
+  flex-direction: column-reverse;
   height: 700px;
-  overflow: scroll;
+
 }
 
 ::-webkit-scrollbar {
@@ -178,13 +181,26 @@ body {
 
 .MyPost {
   color: rgb(98, 98, 189);
+
+  h4 { 
+    font-size: 12px;   
+  }
+ 
+}
+
+.StandardPost {
+  h4 { 
+    font-size: 12px;   
+  }
+ 
 }
 
 .Post {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  text-align: left;
+  // text-align: left;
+  min-height: 60px;
   margin-bottom: 15px;
   font-size: 1.5rem;
   border-width: 2px;
@@ -192,6 +208,7 @@ body {
   border-radius: 5px;
   padding: 5px;
   border-color: rgb(123, 146, 122);
+  
 
 }
 
@@ -201,6 +218,10 @@ body {
   justify-content: flex-start;
   flex-direction: column;
   width: 90%;
+  h4 {
+    font-weight: 100;
+
+  }
 }
 
 .ButtonsAndCounter {
@@ -209,10 +230,21 @@ body {
   align-items: center;
   justify-content: center;
   text-align: right;
+  flex-wrap: nowrap;
 }
 
 .ButtonsContainer {
   display: flex;
+  flex-wrap: nowrap;
+  button {
+    background-color: #addfa9;
+    color: whitesmoke;
+    border: none;
+    padding: 3px;
+    border-radius: 8px;
+    font-size: 1.5rem;
+    margin: 1px;
+  }
 }
 
 
@@ -231,6 +263,8 @@ body {
   justify-content: center;
   width: 100%;
   font-size: 13px;
+
+  white-space:nowrap;
 }
 
 .SignUpHeader {

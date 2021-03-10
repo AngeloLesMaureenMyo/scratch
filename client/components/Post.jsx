@@ -1,11 +1,11 @@
 import React from 'react';
 
-export default function Post({ title, body, styling, votes, postId, userId, upVoteFunc, downVoteFunc }) {
-  console.log(styling);
+export default function Post({ title, body, styling, votes, postId, userId, upVoteFunc, downVoteFunc, currentUserId }) {
+  //console.log(styling);
   return (
     <div className={`Post ${styling}`}>
       <div className='TitleAndBody'>
-        <h4>{title}:</h4>
+        <h4>{title}</h4>
         <p className='PostBody'>{body}</p>
       </div>
       <div className='ButtonsAndCounter'>
@@ -16,20 +16,20 @@ export default function Post({ title, body, styling, votes, postId, userId, upVo
           id="upvote" 
           onClick={(e) => { 
             e.preventDefault(); 
-            upVoteFunc(votes, postId, userId)
+            upVoteFunc(votes, postId, userId, currentUserId)
           }
-            }>up</button>
+            }>🐃</button>
           <button 
           type="button" 
           className="downVoteButton" 
           id="downvote" 
           onClick={(e) => {
             e.preventDefault();
-            downVoteFunc(votes, postId, userId)
+            downVoteFunc(votes, postId, userId, currentUserId)
           }
-            }>down</button>
+            }>💥</button>
         </div>
-        <p className="votesCounter" id="votes">#of votes: {votes}</p>
+        <div className="votesCounter" id="votes">{votes} Yaks</div>
       </div>
     </div>
     
