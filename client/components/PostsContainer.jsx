@@ -45,7 +45,7 @@ class PostsContainer extends Component {
           title={post.title}
           body={post.body}
           feedPostID={post._id}
-          datetime={post.createdat}
+          dateTime={post.createdat}
           userId={post.user_id}
           styling={post.user_id === this.props.userId ? 'MyPost' : null}
           />
