@@ -1,10 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Fira+Sans&display=swap');
 
-$primary-color:#e4e4e4;
+$primary-color: #e4e4e4;
 $secondary-color: rgb(124, 167, 86);
 $text-color: #23120b;
-$background-color: #f1f1f1; 
-
+$background-color: #f1f1f1;
 
 * {
   margin: 0;
@@ -51,11 +50,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  
 }
 
 .cardCreateChar {
-  
   border-style: none;
   padding: 4rem;
   border-radius: 5px;
@@ -69,7 +66,7 @@ body {
   justify-content: center;
   font-size: 1.5rem;
   color: $text-color;
-  
+
   box-sizing: content-box;
 
   input {
@@ -119,13 +116,41 @@ body {
 }
 
 .link {
-  background-color: #424d41;
-  color: $background-color;
+  background-color: darken($background-color, 7%);
+  color: $text-color;
   border: none;
-  padding: 8px 15px;
+  padding: 8px 20px;
   border-radius: 8px;
   font-size: 1.5rem;
   margin-left: 35px;
+  margin-right: 25px;
+  margin: 10px;
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    cursor: pointer;
+    background-color: lighten($secondary-color, 30%);
+  }
+}
+
+.LoginButton {
+  background-color: darken($background-color, 7%);
+  color: $text-color;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 1.5rem;
+  margin-left: 35px;
+  margin-right: 25px;
+  margin: 10px;
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    cursor: pointer;
+    background-color: lighten($secondary-color, 30%);
+  }
 }
 
 .SignUpButton {
@@ -138,8 +163,7 @@ body {
 // }
 
 .PostForm {
-
-  position:fixed;
+  position: fixed;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
@@ -170,8 +194,7 @@ body {
   }
   button:hover {
     cursor: pointer;
-    background-color:lighten($secondary-color, 30%);
-   
+    background-color: lighten($secondary-color, 30%);
   }
   textarea {
     border: none;
@@ -216,16 +239,13 @@ body {
   margin-top: 20px;
   color: #2a363b;
   width: 70vw;
- 
 }
 
 .PostsOnly {
-  display:flex;
+  display: flex;
   flex-direction: column-reverse;
   max-height: 70vh;
   color: $secondary-color;
-  
-
 }
 
 ::-webkit-scrollbar {
@@ -244,28 +264,26 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color:$secondary-color;
-
+  background-color: $secondary-color;
 }
 
 .MyPost {
   color: rgb(98, 98, 189);
 
-  h4 { 
-    font-size: 12px;   
+  h4 {
+    font-size: 12px;
   }
-  .MessageUsername{
+  .MessageUsername {
     font-weight: 900;
     color: rgb(98, 98, 189);
   }
 }
 
 .StandardPost {
-  color:darken($secondary-color, 40%);
-  h4 { 
-    font-size: 12px;   
+  color: darken($secondary-color, 40%);
+  h4 {
+    font-size: 12px;
   }
-
 }
 
 .Post {
@@ -286,8 +304,6 @@ body {
   border-color: $text-color;
   background-color: $primary-color;
   background: $primary-color;
-  
-
 }
 
 .TitleAndBody {
@@ -298,18 +314,15 @@ body {
   margin-left: 1.5vw;
   width: 90%;
   h4 {
-    
     font-weight: 900;
   }
-  .MessageUsername{
+  .MessageUsername {
     font-weight: 100;
     // font-style: italic;
     margin-bottom: 0.4em;
-    color: gray ;
+    color: gray;
     text-decoration: overline;
-  
   }
-  
 }
 
 .ButtonsAndCounter {
@@ -345,15 +358,10 @@ body {
   }
 }
 
-
-
-
 .upVoteButton {
-
 }
 
 .downVoteButton {
-
 }
 
 .votesCounter {
@@ -362,18 +370,17 @@ body {
   width: 100%;
   font-size: 13px;
 
-  white-space:nowrap;
+  white-space: nowrap;
 }
 
 .SignUpHeader {
   margin-bottom: 30px;
-
 }
 
-.break{
+.break {
   width: 10px;
 }
 
-.MessageUsername{
+.MessageUsername {
   font-weight: 900;
 }

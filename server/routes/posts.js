@@ -4,8 +4,8 @@ const authController = require('../controllers/authController');
 const router = express.Router();
 
 router.post(
-  '/upvote', 
-  
+  '/upvote',
+
   postsController.upvotePost,
   postsController.getAllPosts,
   postsController.userVotes,
@@ -16,7 +16,7 @@ router.post(
       allPosts: res.locals.allPosts,
       updatedUser: res.locals.updatedUser,
     });
-  },
+  }
 );
 
 router.post(
@@ -32,10 +32,10 @@ router.post(
       allPosts: res.locals.allPosts,
       updatedUser: res.locals.updatedUser,
     });
-  },
+  }
 );
 
-router.delete(
+router.post(
   '/banned',
   postsController.bannedUser,
   postsController.getAllPosts,
@@ -45,17 +45,13 @@ router.delete(
     return res.status(200).json({
       allPosts: res.locals.allPosts,
     });
-  },
+  }
 );
 
-router.post(
-  '/',
-  postsController.createPost,
-  (req, res) => {
-    // console.log('you created a post');
-    res.status(200).json(res.locals.newPost);
-  },
-);
+router.post('/', postsController.createPost, (req, res) => {
+  // console.log('you created a post');
+  res.status(200).json(res.locals.newPost);
+});
 
 router.get(
   '/',
@@ -63,6 +59,6 @@ router.get(
   postsController.getAllPosts,
   (req, res) => {
     res.status(200).json(res.locals.allPosts);
-  },
+  }
 );
 module.exports = router;
