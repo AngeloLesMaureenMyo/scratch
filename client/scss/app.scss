@@ -195,11 +195,9 @@ body {
 }
 
 .PostsOnly {
-  // display:flex;
-  
+  display:flex;
   flex-direction: column-reverse;
   max-height: 70vh;
-  overflow: initial;
   color: $secondary-color;
   
 
