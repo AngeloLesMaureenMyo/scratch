@@ -53,13 +53,13 @@ postsController.createPost = async (req, res, next) => {
 
       const query = `
         INSERT INTO posts(user_id, alias, createdat, body, parent_id)
-        VALUES(${user_id}, ${alias}, NOW(), ${body}, ${parent_id})
+        VALUES($1, $2, NOW(), $3, $4)
         RETURNING *`;
 
-      await db.query(query, (err, data) => {
-        res.locals.newPost = data.rows[0];
+      const { rows } = await db.query(query, [user_id, alias, body, parent_id])
+        res.locals.newPost = rows[0];
         return next();
-      });
+
       /* Error handler for creating a comment ie thread post */
     } catch (err) {
       return next({
@@ -75,13 +75,13 @@ postsController.createPost = async (req, res, next) => {
 
       const query = `
           INSERT INTO posts(user_id, alias, createdat, body)
-          VALUES(${user_id}, ${alias}, NOW(), ${body})
+          VALUES($1, $2, NOW(), $3)
           RETURNING *`;
 
-      await db.query(query, (err, data) => {
-        res.locals.newPost = data.rows[0];
+      const { rows } = await db.query(query, [user_id, alias, body]) 
+        res.locals.newPost = rows[0];
         return next();
-      });
+      
       /* Error handling for creating a feed post */
     } catch (err) {
       return next({
