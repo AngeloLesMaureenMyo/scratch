@@ -5,7 +5,7 @@ export const authenticate = (isAuthenticated) => ({
   payload: isAuthenticated,
 });
 
-//gets feed posts
+//gets feed level posts
 export const getPosts = () => (dispatch) => {
   fetch('/posts')
     .then((res) => res.json())
@@ -15,13 +15,12 @@ export const getPosts = () => (dispatch) => {
     });
 };
 
-export const savePost = (title, body, id) => (dispatch) => {
+export const savePost = (alias, body, id) => (dispatch) => {
   const reqBody = {
-    title,
-    body,
+    alias: alias,
+    body: body,
     user_id: id,
   };
-
   fetch('/posts', {
     method: 'POST',
     headers: { 'Content-Type': 'Application/JSON' },
@@ -35,12 +34,6 @@ export const savePost = (title, body, id) => (dispatch) => {
     .catch((e) => console.log(e));
 };
 
-// to delete, as we won't be updating Title, it will be replaced with an assigned alias
-export const updateTitle = (newTitle) => ({
-  type: types.UPDATE_TITLE,
-  payload: newTitle,
-});
-
 export const updateBody = (newBody) => ({
   type: types.UPDATE_BODY,
   payload: newBody,
@@ -49,4 +42,9 @@ export const updateBody = (newBody) => ({
 export const updateActiveThreadID = (newID) => ({
   type: types.UPDATE_ACTIVE_THREAD_ID,
   payload: newID,
+});
+
+export const assignAlias = (alias) => ({
+  type: types.ASSIGN_ALIAS,
+  payload: alias,
 });
