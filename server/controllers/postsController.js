@@ -1,5 +1,4 @@
 const db = require('../models/socialModels');
-const { post } = require('../routes/auth');
 
 const postsController = {};
 
@@ -24,21 +23,21 @@ postsController.getFeedPosts = async (req, res, next) => {
     });
   }
 };
-/*  Called in routes/posts.js on router.get('/thread-posts',...)
+/*  Called in routes/posts.js on router.get('/posts/threads,...)
        -->Gets all child comments on a post  */
 postsController.getThreadPosts = async (req, res, next) => {
   try {
-    const { postId } = req.body
+    const { number } = req.params;
 
     const query = `
   SELECT * FROM posts p
   WHERE p.parent_id = $1
   ORDER BY p.createdat`;
   
-    const { rows } = await db.query(query, [postId])
+    const { rows } = await db.query(query, [number]) 
       res.locals.threadPosts = rows;
       return next();
-
+    
   } catch (err) {
     return next({
       log: 'error at postController.getThreadPosts',
