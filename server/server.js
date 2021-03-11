@@ -5,7 +5,12 @@ const cookieParser = require('cookie-parser');
 
 const app = express();
 const http = require('http').createServer(app);
-const io = require('socket.io')(http);
+const io = require('socket.io')(http, {
+  cors: {
+    origin: 'http://localhost:8080',
+    methods: ['GET', 'POST'],
+  },
+});
 
 const authRouter = require('./routes/auth');
 const postsRouter = require('./routes/posts');
@@ -46,15 +51,14 @@ if (process.env.NODE_ENV === 'production') {
 Ready the input/output
 */
 io.on('connection', (socket) => {
-  console.log('$$$$$$$$$$$$$$$$$ IO.ON INVOKED!!! / a user connected YOUNG MONEY $$$$$$$$$$$$$$$$$');
-  // socket.on('join', function(data) { console.log(data) });
+  // console.log('WebSocket connected');
+  socket.on('new post', (post) => {
+    // console.log('server received the new post');
+    io.sockets.emit('new post', post)
+  })
   socket.on('disconnect', () => {
-    console.log("farewell!!!!!! user OUT DIS BITCH");
+    // console.log('Websocket: bye, bitch!!!!!');
   });
-  // socket.on('post', (post) => {
-  //   console.log('POST!!!!!!');
-  //   io.sockets.emit('posted:', post);
-  // });
 });
 
 /*
