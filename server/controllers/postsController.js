@@ -33,6 +33,7 @@ postsController.getThreadPosts = async (req, res, next) => {
   SELECT * FROM posts p
   WHERE p.parent_id = $1
   ORDER BY p.createdat`;
+  
     const { rows } = await db.query(query, [postId])
       res.locals.threadPosts = rows;
       return next();
