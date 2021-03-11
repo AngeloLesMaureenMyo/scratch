@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Fira+Sans&display=swap');
 
-$primary-color:lighten( #fdb827, 15%);
-$secondary-color: rgb(114, 122, 167);
+$primary-color:#e4e4e4;
+$secondary-color: rgb(124, 167, 86);
 $text-color: #23120b;
 $background-color: #f1f1f1; 
 
@@ -50,6 +50,15 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  
+}
+
+.cardCreateChar {
+  
+  border-style: none;
+  padding: 4rem;
+  border-radius: 5px;
+  background-color: darken($background-color, 5%);
 }
 
 .Login {
@@ -57,8 +66,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: $text-color;
+  
+  box-sizing: content-box;
 
   input {
     margin: 10px;
@@ -73,8 +84,8 @@ body {
   }
   a {
     text-decoration: none;
-    color: $background-color;
-    font-size: 2rem;
+    color: $text-color;
+    font-size: 1.5rem;
     // border: 1px solid black;
     border-bottom: 1px solid $background-color;
     margin-left: 25px;
@@ -85,7 +96,7 @@ body {
     border: none;
     padding: 8px 20px;
     border-radius: 8px;
-    font-size: 2rem;
+    font-size: 1.5rem;
     margin-left: 35px;
   }
   button:focus {
@@ -94,6 +105,11 @@ body {
   button:hover {
     cursor: pointer;
   }
+}
+
+.signup {
+  display: flex;
+  justify-content: center;
 }
 
 .PostForm {
@@ -106,16 +122,16 @@ body {
   z-index: 5;
   padding-top: 15px;
   border-width: 2px;
-  border-style: solid;
+  border-style: none;
   border-radius: 5px;
   padding: 5px;
   border-color: $text-color;
-  box-shadow: 0px 15px 75px 6px rgb(52, 66, 59);
+  // box-shadow: 0px 5px 10px 5px rgb(158, 158, 158);
   margin-bottom: 15px;
 
   button {
-    background-color:$text-color;
-    color: $background-color;
+    background-color: darken($background-color, 7%);
+    color: $text-color;
     border: none;
     padding: 8px 20px;
     border-radius: 8px;
@@ -129,6 +145,8 @@ body {
   }
   button:hover {
     cursor: pointer;
+    background-color:lighten($secondary-color, 30%);
+   
   }
   textarea {
     border: none;
@@ -196,19 +214,19 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #d6dee1;
+  background-color: lighten($secondary-color, 30%);
   border-radius: 20px;
   border: 6px solid transparent;
   background-clip: content-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #a8bbbf;
+  background-color:$secondary-color;
 
 }
 
 .MyPost {
-  color:$text-color;
+  color: rgb(98, 98, 189);
 
   h4 { 
     font-size: 12px;   
@@ -217,6 +235,7 @@ body {
 }
 
 .StandardPost {
+  color:darken($secondary-color, 40%);
   h4 { 
     font-size: 12px;   
   }
@@ -272,13 +291,22 @@ body {
   display: flex;
   flex-wrap: nowrap;
   button {
-    background-color:$background-color;
+    background-color: $background-color;
     color: $background-color;
     border: none;
     padding: 3px;
-    border-radius: 5px;
+    border-radius: 8px;
     font-size: 1.5rem;
     margin: 1px;
+
+    &:hover {
+      cursor: pointer;
+      color: $primary-color;
+      background-color: lighten($secondary-color, 30%);
+    }
+    &:focus {
+      outline: none;
+    }
   }
 }
 
