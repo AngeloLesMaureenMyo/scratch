@@ -1,6 +1,7 @@
 const express = require('express');
 
 const authController = require('../controllers/authController');
+const userController = require('../controllers/userController');
 
 const router = express.Router();
 
@@ -8,8 +9,9 @@ router.post(
   '/signup',
   authController.create,
   authController.addJWT,
+  userController.createAlias,
   (req, res) => {
-    res.status(200).json(res.locals.user);
+    res.status(200).json({ user: res.locals.user, alias: res.locals.alias });
   }
 );
 
@@ -17,8 +19,9 @@ router.post(
   '/login',
   authController.login,
   authController.addJWT,
+  userController.createAlias,
   (req, res) => {
-    res.status(200).json(res.locals.user);
+    res.status(200).json({ user: res.locals.user, alias: res.locals.alias });
   }
 );
 
