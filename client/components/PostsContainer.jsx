@@ -4,6 +4,7 @@ import { getPosts, updateActiveThreadID } from '../actions/actions';
 import Post from './Post.jsx';
 import PostForm from './PostForm.jsx';
 import Navbar from './Navbar.jsx';
+import ThreadsContainer from './ThreadsContainer.jsx';
 
 const mapStateToProps = (state) => {
   //
@@ -27,7 +28,8 @@ class PostsContainer extends Component {
     if (this.props.posts.activeThreadID === feedPostID) {
     return (
       // dummy ThreadContainer, to be replaced
-      <div>ThreadContainer</div>
+      // <div>ThreadContainer</div>
+      <ThreadsContainer/>
       // uncomment below when ThreadContainer is merged, alias feature not implemented yet
       // <ThreadContainer alias={alias} feedPostID={feedPostID}/>
     )}

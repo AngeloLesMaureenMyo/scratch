@@ -50,3 +50,37 @@ export const updateActiveThreadID = (newID) => ({
   type: types.UPDATE_ACTIVE_THREAD_ID,
   payload: newID,
 });
+
+
+
+export const getThreads = () => (dispatch) => {
+  console.log('Inside getThreads in actions.js')
+  fetch('/posts/threads')
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      dispatch({ type: types.GET_THREADS, payload: data });
+    });
+};
+
+
+export const saveThread = (body, id, postId) => (dispatch) => {
+  const reqBody = {
+    body,
+    user_id: id,
+    postId: postId
+  };
+
+  fetch('/threads', {
+    method: 'POST',
+    headers: { 'Content-Type': 'Application/JSON' },
+    body: JSON.stringify(reqBody),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      dispatch({ type: types.SAVE_THREAD, payload: data });
+    })
+    .catch((e) => console.log(e));
+};
+
