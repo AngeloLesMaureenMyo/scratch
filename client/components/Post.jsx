@@ -5,8 +5,9 @@ export default function Post({ title, body, styling, votes, postId, userId, upVo
   
   return (
     <div className={`Post ${styling}`}>
-      <h4>{username}</h4>
+    
       <div className='TitleAndBody'>
+        <h4 className='MessageUsername'>{username}</h4>
         <h4>{title}</h4>
         <p className='PostBody'>{body}</p>
       </div>
