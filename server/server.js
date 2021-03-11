@@ -44,7 +44,8 @@ if (process.env.NODE_ENV === 'production') {
   app.use('/build', express.static(path.join(__dirname, '../build/')));
 
   app.get('/', (req, res) =>
-    res.status(200).sendFile(path.join(__dirname, '../index.html')));
+    res.status(200).sendFile(path.join(__dirname, '../index.html'))
+  );
 }
 
 /*
@@ -54,8 +55,8 @@ io.on('connection', (socket) => {
   // console.log('WebSocket connected');
   socket.on('new post', (post) => {
     console.log('server received the new post', post);
-    io.sockets.emit('new post', post)
-  })
+    io.sockets.emit('new post', post);
+  });
   // socket.on('new upvote', (data) => {
   //   console.log('server received the new vote count', data);
   //   io.sockets.emit('new upvote', data)
@@ -81,7 +82,7 @@ app.use((err, req, res, next) => {
     status: 500,
     message: 'An error occurred',
   };
-  console.log('inside global error handler')
+  console.log('inside global error handler');
   const error = { ...defaultErr, ...err };
   return res.status(error.status).json(error.message);
 });
@@ -89,6 +90,8 @@ app.use((err, req, res, next) => {
 /*
 start server
 */
-http.listen(3000, () => {console.log('Listening on Port 3000')});
+http.listen(3000, () => {
+  console.log('Listening on Port 3000');
+});
 
 module.exports = app;

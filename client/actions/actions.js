@@ -20,9 +20,9 @@ export const savePost = (title, body, id, username) => (dispatch) => {
     title,
     body,
     user_id: id,
-    username
+    username,
   };
-  console.log('saving post: ', title, body, id, username)
+  console.log('saving post: ', title, body, id, username);
   fetch('/posts', {
     method: 'POST',
     headers: { 'Content-Type': 'Application/JSON' },
@@ -32,7 +32,6 @@ export const savePost = (title, body, id, username) => (dispatch) => {
     .then((data) => {
       //console.log(data);
       dispatch({ type: types.SAVE_POST, payload: data });
-    
     })
     .catch((e) => console.log(e));
 };
@@ -53,14 +52,13 @@ export const updateUser = (newUser) => ({
 });
 
 export const upVote = (votes, postId, userId, currentUser) => (dispatch) => {
-  console.log('upvote fired', votes, postId, userId, currentUser)
+  console.log('upvote fired', votes, postId, userId, currentUser);
 
   const reqBody = {
     votes: votes + 1,
     postId: postId,
-    userId: userId
+    userId: userId,
   };
-
 
   fetch('/posts/upvote', {
     method: 'POST',
@@ -70,7 +68,9 @@ export const upVote = (votes, postId, userId, currentUser) => (dispatch) => {
     .then((res) => res.json())
     .then((data) => {
       // console.log('updatedUser=======================', data);
-      if (userId === currentUser) {dispatch({ type: types.UPDATE_USER_VOTES, payload: data.updatedUser })}
+      if (userId === currentUser) {
+        dispatch({ type: types.UPDATE_USER_VOTES, payload: data.updatedUser });
+      }
       // dispatch({ type: types.UPDATE_USER_VOTES, payload: data.updatedUser })
       dispatch({ type: types.UPVOTE, payload: data.allPosts });
 
@@ -84,18 +84,17 @@ export const upVote = (votes, postId, userId, currentUser) => (dispatch) => {
       //     dispatch({ type: types.UPDATE_ONLY_VOTES, payload: newData })
       //   }
       // })
-
     })
     .catch((e) => console.log(e));
 };
-  //body of post request to include id of current post and id of post creator
+//body of post request to include id of current post and id of post creator
 export const downVote = (votes, postId, userId, currentUser) => (dispatch) => {
   //post request to backend
-  console.log('downvote fired', votes, postId, userId, currentUser)
+  console.log('downvote fired', votes, postId, userId, currentUser);
   const reqBody = {
     votes: votes - 1,
     postId: postId,
-    userId: userId
+    userId: userId,
   };
   //endpoint TBD
   fetch('/posts/downvote', {
@@ -106,14 +105,41 @@ export const downVote = (votes, postId, userId, currentUser) => (dispatch) => {
     .then((res) => res.json())
     .then((data) => {
       // console.log(data);
-      if (userId === currentUser) {dispatch({ type: types.UPDATE_USER_VOTES, payload: data.updatedUser })}
-      
+      if (userId === currentUser) {
+        dispatch({ type: types.UPDATE_USER_VOTES, payload: data.updatedUser });
+      }
+
       dispatch({ type: types.DOWNVOTE, payload: data.allPosts });
     })
     .catch((e) => console.log(e));
 };
 
+export const bannedUser = (username, id) => (dispatch) => {
+  //post request to backend
+  console.log('banned mf fired', username, id);
+  const reqBody = {
+    username,
+    user_id: id,
+  };
 
+  //endpoint TBD
+  fetch('/posts/banned', {
+    method: 'POST',
+    headers: { 'Content-Type': 'Application/JSON' },
+    body: JSON.stringify(reqBody),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log('DELETE FETCH REQUEST DATA:', data);
+
+      // if (userId === currentUser) {dispatch({ type: types.UPDATE_USER_VOTES, payload: data.updatedUser })}
+
+      dispatch({ type: types.BANNED, payload: data.allPosts });
+    })
+    .catch((e) => console.log(e));
+};
+
+/*
 export const bannedUser = (username, id) => (dispatch) => {
   //post request to backend
   console.log('banned mf fired', username, id);
@@ -138,6 +164,7 @@ export const bannedUser = (username, id) => (dispatch) => {
     })
     .catch((e) => console.log(e));
 };
+*/
 
 /*
 export const savePost = (title, body, id, username) => (dispatch) => {
