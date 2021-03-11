@@ -11,10 +11,11 @@ postsController.getFeedPosts = async (req, res, next) => {
     SELECT * FROM posts p
     WHERE p.parent_id = 0
     ORDER BY p.createdat DESC`;
-    await db.query(query, (err, data) => {
-      res.locals.feedPosts = data.rows;
+    const response = await db.query(query);
+      res.locals.feedPosts = response.rows;
+      console.log('Rows is', response)
       return next();
-    });
+
   } catch (err) {
     return next({
       log: 'error at postController.getFeedPosts',
@@ -27,15 +28,19 @@ postsController.getFeedPosts = async (req, res, next) => {
        -->Gets all child comments on a post  */
 postsController.getThreadPosts = async (req, res, next) => {
   try {
-    const { postId } = req.body;
-
+    const { number } = req.params;
+    // postId = req.params.number
+    // console.log('PostId is', number)
+    // console.log('Request.params is', req.params);
     const query = `
   SELECT * FROM posts p
   WHERE p.parent_id = $1
   ORDER BY p.createdat`;
   
-    const { rows } = await db.query(query, [postId]) 
-      res.locals.threadPosts = rows;
+    const response = await db.query(query, [number]) 
+      res.locals.threadPosts = response.rows;
+      // console.log('Res obj', response.rows)
+      // console.log('This is the params.number', params.number);
       return next();
     
   } catch (err) {

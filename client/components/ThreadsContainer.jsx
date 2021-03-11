@@ -7,7 +7,7 @@ import ThreadForm from './ThreadForm.jsx';
 
 const mapStateToProps = (state) => {
   //
-  return { threads: state.threads, userId: state.scratch.user.id };
+  return { threads: state.threads, userId: state.scratch.user.id};
 };
 
 //This Thread component will have two pieces of functionality
@@ -26,9 +26,12 @@ class ThreadsContainer extends Component {
         console.log('This is my state', this.props)
         this.props.getThreads(this.props.feedPostID);
 
+        //If there are existing threads, set showThreads to true
+  
       }
 
     renderThreads(){
+        console.log('Threads in state', this.props.threads)
         if(Array.isArray(this.props.threads.threads)){
             return this.props.threads.threads.map((thread, i) => {
                 return(
@@ -49,8 +52,8 @@ class ThreadsContainer extends Component {
       return (
        //Upon conditional being met, between 
        <center className="ThreadsContainer">
-           {/* Do iteration logic similiar to PostForm */}
-        {this.renderThreads}
+
+        {this.renderThreads()}
        <ThreadForm feedPostID = {this.props.feedPostID}/>
      </center>
       );

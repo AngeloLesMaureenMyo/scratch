@@ -53,16 +53,17 @@ export const updateActiveThreadID = (newID) => ({
 
 export const getThreads = (id) => (dispatch) => {
   console.log('Inside getThreads in actions.js')
-  const reqBody = {
-    postId: id
-  }
-  fetch('/posts/threads'), {
+  console.log('Fetch id is ', id);
+  // const reqBody = {
+  //   postId: id
+  // }
+  fetch(`/posts/threads/${id}`, {
     headers: { 'Content-Type': 'Application/JSON' },
-    body: JSON.stringify(reqBody),
-  }
+    // body: JSON.stringify(reqBody),
+  })
     .then((res) => res.json())
     .then((data) => {
-      console.log('Data from fetch is', data);
+      console.log('Thread is', data[0].body);
       dispatch({ type: types.GET_THREADS, payload: data });
     });
 };
@@ -75,7 +76,7 @@ export const saveThread = (alias, body, id, postId) => (dispatch) => {
     user_id: id,
     parent_id: postId
   };
-
+  console.log('Inside the saveThread actions.js file')
   fetch('/threads', {
     method: 'POST',
     headers: { 'Content-Type': 'Application/JSON' },
