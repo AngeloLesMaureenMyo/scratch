@@ -39,10 +39,56 @@ export const updateBody = (newBody) => ({
   payload: newBody,
 });
 
+export const updateThread = (newBody) => ({
+  type: types.UPDATE_THREAD,
+  payload: newBody,
+});
+
 export const updateActiveThreadID = (newID) => ({
   type: types.UPDATE_ACTIVE_THREAD_ID,
   payload: newID,
 });
+
+
+
+export const getThreads = (id) => (dispatch) => {
+  console.log('Inside getThreads in actions.js')
+  console.log('Fetch id is ', id);
+  // const reqBody = {
+  //   postId: id
+  // }
+  fetch(`/posts/threads/${id}`, {
+    headers: { 'Content-Type': 'Application/JSON' },
+    // body: JSON.stringify(reqBody),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log('Thread is', data[0].body);
+      dispatch({ type: types.GET_THREADS, payload: data });
+    });
+};
+
+
+export const saveThread = (alias, body, id, postId) => (dispatch) => {
+  const reqBody = {
+    alias,
+    body,
+    user_id: id,
+    parent_id: postId
+  };
+  console.log('Inside the saveThread actions.js file')
+  fetch('/threads', {
+    method: 'POST',
+    headers: { 'Content-Type': 'Application/JSON' },
+    body: JSON.stringify(reqBody),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      dispatch({ type: types.SAVE_THREAD, payload: data });
+    })
+    .catch((e) => console.log(e));
+};
 
 export const assignAlias = (alias) => ({
   type: types.ASSIGN_ALIAS,
