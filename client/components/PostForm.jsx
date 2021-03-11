@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { updateTitle, updateBody, savePost } from '../actions/actions';
 import Filter from 'bad-words';
+// import { Socket } from 'socket.io';
 
 const filter = new Filter();
 
@@ -33,15 +34,18 @@ class PostForm extends Component {
       
       <center className="PostForm">
         <form
-          onSubmit={(e) =>
+          onSubmit={(e) => {
+            var socket = io();
             this.props.handleSubmit(
               e,
               this.props.newPostTitle,
               this.props.newPostBody,
               this.props.user.id
             )
+            socket.emit('new post', `emitting from PostForm: ${this.props.newPostBody}`);
           }
-        >
+        }
+        >.
           <input
             placeholder="Add a title"
             onChange={(e) => this.props.updateTitle(e.target.value)}

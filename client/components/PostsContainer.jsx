@@ -4,7 +4,7 @@ import { getPosts, upVote, downVote } from '../actions/actions';
 import Post from './Post.jsx';
 import PostForm from './PostForm.jsx';
 import Navbar from './Navbar.jsx';
-
+import socketIOClient from 'socket.io-client';
 
 const mapStateToProps = (state) => {
   //
@@ -24,6 +24,15 @@ class PostsContainer extends Component {
   }
   componentDidMount() {
     this.props.getPosts();
+  }
+
+  componentDidUpdate() {
+    const socket = socketIOClient('http://localhost:3000');
+    socket.on('new post', () => {
+      // console.log('HEARD THE EVENT EMISSION');
+      this.props.getPosts();
+      // console.log('this.props.getPosts(): ', this.props.getPosts())
+    })
   }
  
   renderPosts() {
