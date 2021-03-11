@@ -17,11 +17,10 @@ export const getPosts = () => (dispatch) => {
 
 export const savePost = (alias, body, id) => (dispatch) => {
   const reqBody = {
-    alias,
-    body,
+    alias: alias,
+    body: body,
     user_id: id,
   };
-
   fetch('/posts', {
     method: 'POST',
     headers: { 'Content-Type': 'Application/JSON' },
