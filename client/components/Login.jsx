@@ -19,6 +19,9 @@ const mapDispatchToProps = (dispatch) => {
     authenticate: (user) => {
       dispatch({ type: 'AUTHENTICATE', payload: user });
     },
+    assignAlias: (alias) => {
+      dispatch({ type: 'ASSIGN_ALIAS', payload: alias})
+    }
   };
 };
 
@@ -52,7 +55,9 @@ const Login = (props) => {
         // })
         .then((data) => {
           console.log('data from login is: ', data);
-          props.authenticate(data);
+          props.authenticate(data.user);
+          props.assignAlias(data.alias)
+
           // props.history.push('/feed');
           // history.push('/hello');
         })

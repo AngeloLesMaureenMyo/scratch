@@ -29,9 +29,9 @@ class PostsContainer extends Component {
     return (
       // dummy ThreadContainer, to be replaced
       // <div>ThreadContainer</div>
-      <ThreadsContainer/>
+      //<ThreadsContainer/>
       // uncomment below when ThreadContainer is merged, alias feature not implemented yet
-      // <ThreadContainer alias={alias} feedPostID={feedPostID}/>
+      <ThreadsContainer alias={alias} feedPostID={feedPostID}/>
     )}
   }
 
@@ -44,10 +44,9 @@ class PostsContainer extends Component {
           updateActiveThreadID={this.props.updateActiveThreadID}
           key={`Post ${i}`}
           alias={post.alias}
-          title={post.title}
           body={post.body}
           feedPostID={post._id}
-          datetime={post.createdat}
+          dateTime={post.createdat}
           userId={post.user_id}
           styling={post.user_id === this.props.userId ? 'MyPost' : null}
           />

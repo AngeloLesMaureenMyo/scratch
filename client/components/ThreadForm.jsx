@@ -17,9 +17,12 @@ const mapDispatchToProps = (dispatch) => {
     updateThread: (value) => dispatch(updateThread(value)),
     handleSubmit: (e, body, id, feedPostId) => {
       e.preventDefault();
+      console.log('e is', e)
+      console.log('Body is', body)
+      console.log('The $', e.target)
       console.log('Target val', e.target.value)
-      if (!body) return console.log('No body');
-      dispatch(saveThread(body, id, feedPostId));
+    //   if (!body) return console.log('No body');
+    //   dispatch(saveThread(body, id, feedPostId));
     },
   };
 };
@@ -32,10 +35,9 @@ class ThreadForm extends Component {
           onSubmit={(e) =>
             this.props.handleSubmit(
               e,
-            //   this.props.newPostTitle,
               this.props.newThreadBody,
               this.props.user.id,
-              this.props.postId
+              this.props.feedPostId
             )
           }
         >

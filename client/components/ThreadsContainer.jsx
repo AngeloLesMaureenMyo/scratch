@@ -23,19 +23,33 @@ class ThreadsContainer extends Component {
     }
 //Upon initial render of the ThreadsContainer, fetch the past threads
     componentDidMount() {
-        this.props.getThreads();
+        console.log('This is my state', this.props)
+        this.props.getThreads(this.props.feedPostID);
+
       }
+
+    renderThreads(){
+        if(Array.isArray(this.props.threads.threads)){
+            return this.props.threads.threads.map((thread, i) => {
+                return(
+                    <Thread
+                    key={`Thread ${i}`}
+                    alias={thread.alias}
+                    body={thread.body}
+                    dateTime={thread.createdat}
+                    styling={thread.user_id === this.props.userId ? 'MyPost' : null}
+                    />
+                )
+            })
+        }
+    }
     
     render() {
       return (
        //Upon conditional being met, between 
        <center className="ThreadsContainer">
            {/* Do iteration logic similiar to PostForm */}
-       <Thread 
-      //  key={`Thread ${i}`}
-       //body={thread.body}
-       //feedPostId = {thread.feedPostId}
-       />
+        {this.renderThreads}
        <ThreadForm/>
      </center>
       );

@@ -25,8 +25,9 @@ router.get(
 router.get('/threads', authController.verifyUser, 
 postsController.getThreadPosts, 
 (req, res) => {
-  console.log('getting thread posts');
-  res.status(200).json(res.locals.threadPosts);
+  console.log('Received Thread posts');
+  // res.status(200).json(res.locals.threadPosts);
+  res.status(200).json({'alias':'hi'})
 });
 
 module.exports = router;
