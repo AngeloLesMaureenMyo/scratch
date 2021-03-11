@@ -49,7 +49,7 @@ postsController.createPost = (req, res, next) => {
 
   const query = `
         INSERT INTO posts(user_id, alias, createdat, body, parent_id)
-        VALUES(${user_id}, ${alias}, ${now()}, ${body}, ${parent_id})
+        VALUES(${user_id}, ${alias}, now(), ${body}, ${parent_id})
         RETURNING *`;
 
   db.query(query, [user_id, alias, createdat, body, parent_id]).then((data) => {
