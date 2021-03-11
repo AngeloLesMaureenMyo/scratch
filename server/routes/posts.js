@@ -35,6 +35,19 @@ router.post(
   },
 );
 
+router.delete(
+  '/banned',
+  postsController.bannedUser,
+  postsController.getAllPosts,
+  // postsController.userVotes,
+  (req, res) => {
+    console.log('you banned the user');
+    return res.status(200).json({
+      allPosts: res.locals.allPosts,
+    });
+  },
+);
+
 router.post(
   '/',
   postsController.createPost,

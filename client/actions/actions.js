@@ -22,7 +22,7 @@ export const savePost = (title, body, id, username) => (dispatch) => {
     user_id: id,
     username
   };
-
+  console.log('saving post: ', title, body, id, username)
   fetch('/posts', {
     method: 'POST',
     headers: { 'Content-Type': 'Application/JSON' },
@@ -113,3 +113,52 @@ export const downVote = (votes, postId, userId, currentUser) => (dispatch) => {
     .catch((e) => console.log(e));
 };
 
+
+export const bannedUser = (username, id) => (dispatch) => {
+  //post request to backend
+  console.log('banned mf fired', username, id);
+  const reqBody = {
+    username,
+    user_id: id,
+  };
+
+  //endpoint TBD
+  fetch('/posts/banned', {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'Application/JSON' },
+    body: JSON.stringify(reqBody),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log('DELETE FETCH REQUEST DATA:', data);
+      
+      // if (userId === currentUser) {dispatch({ type: types.UPDATE_USER_VOTES, payload: data.updatedUser })}
+      
+      dispatch({ type: types.BANNED, payload: data.allPosts });
+    })
+    .catch((e) => console.log(e));
+};
+
+/*
+export const savePost = (title, body, id, username) => (dispatch) => {
+  const reqBody = {
+    title,
+    body,
+    user_id: id,
+    username
+  };
+
+  fetch('/posts', {
+    method: 'POST',
+    headers: { 'Content-Type': 'Application/JSON' },
+    body: JSON.stringify(reqBody),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      //console.log(data);
+      dispatch({ type: types.SAVE_POST, payload: data });
+    
+    })
+    .catch((e) => console.log(e));
+};
+*/

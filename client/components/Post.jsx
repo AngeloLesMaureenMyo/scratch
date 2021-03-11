@@ -1,8 +1,7 @@
 import React from 'react';
 
-export default function Post({ title, body, styling, votes, postId, userId, upVoteFunc, downVoteFunc, currentUserId, username }) {
+export default function Post({ title, body, styling, votes, postId, userId, upVoteFunc, downVoteFunc, currentUserId, username, bannedFunc }) {
   //console.log(styling);
-  
   return (
     <div className={`Post ${styling}`}>
       <h4>{username}</h4>
@@ -33,6 +32,18 @@ export default function Post({ title, body, styling, votes, postId, userId, upVo
             downVoteFunc(votes, postId, userId, currentUserId)
           }
             }>💥</button>
+          <button 
+          type="button" 
+          className="bannedButton" 
+          id="banned" 
+          onClick={(e) => {
+            //var socket = io();
+            e.preventDefault(); 
+            bannedFunc(username, userId)
+            // socket.emit('new upvote', `emitting from Post: ${votes}`);
+            // socket.emit('new upvote', {votes: votes,userId: userId,currentUserId: currentUserId})
+          }
+            }>🆘</button>
         </div>
         <div className="votesCounter" id="votes">{votes} Yaks</div>
       </div>
