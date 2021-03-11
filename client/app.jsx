@@ -60,6 +60,7 @@ class App extends Component {
       <div className="router">
         <BrowserRouter>
           <Switch>
+            {/* <Route path="/main" exact component={Home} /> */}
             <Route path="/feed" exact component={PostsContainer} />
             <Route path="/" exact component={Login} />
             <Route path="/signup" exact component={Signup} />

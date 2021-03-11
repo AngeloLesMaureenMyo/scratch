@@ -80,7 +80,8 @@ const Login = (props) => {
       <div className="Login">
         <article className="card createChar">
           <center>
-            <h2 className="SignUpHeader">Yack Yack Yack</h2>
+            <h2 className="SignUpHeader">Yikkity Yak</h2>
+            <img src = "YikYak.jpg" style = {{ height:300, width:600}}/>
           </center>
           <div className="createCharFields">
             <label htmlFor="username">Username: </label>
