@@ -8,7 +8,7 @@ import socketIOClient from 'socket.io-client';
 
 const mapStateToProps = (state) => {
   //
-  return { posts: state.posts, userId: state.scratch.user.id };
+  return { posts: state.posts, userId: state.scratch.user.id, username: state.scratch.user.username };
 };
 
 // const mapDispatchToProps = (dispatch) => {
@@ -33,15 +33,21 @@ class PostsContainer extends Component {
       this.props.getPosts();
       // console.log('this.props.getPosts(): ', this.props.getPosts())
     })
+    // socket.on('new upvote', () => {
+    //   console.log('HEARD THE EVENT EMISSION FOR UPVOTE');
+    //   this.props.getPosts();
+    //   // console.log('this.props.getPosts(): ', this.props.getPosts())
+    // })
   }
- 
+
   renderPosts() {
     if (Array.isArray(this.props.posts.posts)) {
-     
+      console.log('from postscontainer: ', this.props.posts)
       return this.props.posts.posts.slice(0, 30).map((post, i) => (
         // console.log('LINE 28 IN POSTS CONTAINER, POST.BODY: ', post.body);
 
         <Post
+          username={post.username}
           upVoteFunc={this.props.upVote}
           downVoteFunc={this.props.downVote}
           currentUserId={this.props.userId}

@@ -1,4 +1,5 @@
 import * as types from '../constants/actionTypes';
+import socketIOClient from 'socket.io-client';
 
 export const authenticate = (isAuthenticated) => ({
   type: types.AUTHENTICATE,
@@ -9,16 +10,17 @@ export const getPosts = () => (dispatch) => {
   fetch('/posts')
     .then((res) => res.json())
     .then((data) => {
-      //console.log(data);
+      // console.log('DATA MFF: ', data);
       dispatch({ type: types.GET_POSTS, payload: data });
     });
 };
 
-export const savePost = (title, body, id) => (dispatch) => {
+export const savePost = (title, body, id, username) => (dispatch) => {
   const reqBody = {
     title,
     body,
     user_id: id,
+    username
   };
 
   fetch('/posts', {
@@ -45,6 +47,10 @@ export const updateBody = (newBody) => ({
   payload: newBody,
 });
 
+export const updateUser = (newUser) => ({
+  type: types.UPDATE_USER,
+  payload: newUser,
+});
 
 export const upVote = (votes, postId, userId, currentUser) => (dispatch) => {
   console.log('upvote fired', votes, postId, userId, currentUser)
@@ -67,7 +73,17 @@ export const upVote = (votes, postId, userId, currentUser) => (dispatch) => {
       if (userId === currentUser) {dispatch({ type: types.UPDATE_USER_VOTES, payload: data.updatedUser })}
       // dispatch({ type: types.UPDATE_USER_VOTES, payload: data.updatedUser })
       dispatch({ type: types.UPVOTE, payload: data.allPosts });
-      
+
+      // const socket = socketIOClient('http://localhost:3000')
+      // socket.on('new upvote', (newData) => {
+
+      //   console.log('HEARD THE EVENT EMISSION FOR UPVOTE', newData);
+      //   // this.props.upVote();
+      //   // console.log('this.props.getPosts(): ', this.props.getPosts())
+      //   if (newData.currentUserId === currentUser) {
+      //     dispatch({ type: types.UPDATE_ONLY_VOTES, payload: newData })
+      //   }
+      // })
 
     })
     .catch((e) => console.log(e));
@@ -96,4 +112,4 @@ export const downVote = (votes, postId, userId, currentUser) => (dispatch) => {
     })
     .catch((e) => console.log(e));
 };
-  //body of post request to include id of current post and id of post creator  
+

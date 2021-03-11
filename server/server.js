@@ -53,9 +53,13 @@ Ready the input/output
 io.on('connection', (socket) => {
   // console.log('WebSocket connected');
   socket.on('new post', (post) => {
-    // console.log('server received the new post');
+    console.log('server received the new post', post);
     io.sockets.emit('new post', post)
   })
+  // socket.on('new upvote', (data) => {
+  //   console.log('server received the new vote count', data);
+  //   io.sockets.emit('new upvote', data)
+  // })
   socket.on('disconnect', () => {
     // console.log('Websocket: bye, bitch!!!!!');
   });
