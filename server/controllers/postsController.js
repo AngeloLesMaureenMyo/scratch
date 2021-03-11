@@ -12,7 +12,7 @@ postsController.getFeedPosts = async (req, res, next) => {
     WHERE p.parent_id = 0
     ORDER BY p.createdat`;
   await db.query(query, (err,data) => {
-    res.locals.allPosts = data.rows;
+    res.locals.feedPosts = data.rows;
     return next()
   });
 }catch(err){
