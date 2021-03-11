@@ -97,17 +97,17 @@ postsController.createPost = async (req, res, next) => {
 /* **************************** */
 /* Controllers for karma logic */
 
-postsController.updatePostKarma = async (req, res, next) => {
-  try{
-    const { post_id, karma } = req.body;
+// postsController.updatePostKarma = async (req, res, next) => {
+//   try{
+//     const { post_id, karma } = req.body;
     
-    const query = `INSERT INTO posts p`;
+//     const query = `INSERT INTO posts p`;
 
-    const { rows } = await db.query(query, [])
-        res.locals.newKarma = rows[0];
-        return next();
-  }
-}
+//     const { rows } = await db.query(query, [])
+//         res.locals.newKarma = rows[0];
+//         return next();
+//   }
+// }
 
 
 module.exports = postsController;
