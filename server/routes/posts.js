@@ -16,9 +16,9 @@ router.post(
 router.get(
   '/',
   authController.verifyUser,
-  postsController.getAllPosts,
+  postsController.getFeedPosts,
   (req, res) => {
-    res.status(200).json(res.locals.allPosts);
+    res.status(200).json(res.locals.feedPosts);
   }
 );
 /*  Gets all child posts to fill thread container when ---> onClick of button on post component  */
