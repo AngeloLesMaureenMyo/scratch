@@ -3,7 +3,7 @@ import * as types from '../constants/actionTypes';
 const initialState = {
   posts: [],
   activeThreadID: undefined,
-  alias: 'Eager Cute Turtle',
+  alias: '',
   newPostBody: '',
 };
 
@@ -21,6 +21,9 @@ const postsReducer = (state = initialState, action) => {
     }
     case types.UPDATE_ACTIVE_THREAD_ID: {
       return { ...state, activeThreadID: action.payload };
+    }
+    case types.ASSIGN_ALIAS: {
+      return { ...state, alias: action.payload };
     }
     default: {
       return state;

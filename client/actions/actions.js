@@ -43,3 +43,8 @@ export const updateActiveThreadID = (newID) => ({
   type: types.UPDATE_ACTIVE_THREAD_ID,
   payload: newID,
 });
+
+export const assignAlias = (alias) => ({
+  type: types.ASSIGN_ALIAS,
+  payload: alias,
+});
