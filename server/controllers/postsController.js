@@ -97,19 +97,30 @@ postsController.createPost = async (req, res, next) => {
   }
 };
 /* **************************** */
-/* Controllers for karma logic */
+/*  Controllers for karma logic */
 
-// postsController.updatePostKarma = async (req, res, next) => {
-//   try{
-//     const { post_id, karma } = req.body;
+ postsController.updatePostKarma = async (req, res, next) => {
+   try{
+    const { post_id, karma } = req.body;
     
-//     const query = `INSERT INTO posts p`;
+    const query = `
+    UPDATE posts
+    SET karma = $2
+    WHERE posts._id = $1
+    RETURNING *`;
 
-//     const { rows } = await db.query(query, [])
-//         res.locals.newKarma = rows[0];
-//         return next();
-//   }
-// }
+    const { rows } = await db.query(query, [post_id, karma])
+         res.locals.newKarma = rows[0];
+         return next();
+
+   }catch(err) {
+    return next({
+      log: 'error at postsController.updatePostKarma when voting on a post',
+      status: 401,
+      message: `failed to vote on post, error: ${err.message}`,
+    });
+   }
+ }
 
 
 module.exports = postsController;
