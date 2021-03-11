@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getPosts, upVote, downVote } from '../actions/actions';
+import { getPosts, upVote, downVote, bannedUser } from '../actions/actions';
 import Post from './Post.jsx';
 import PostForm from './PostForm.jsx';
 import Navbar from './Navbar.jsx';
@@ -42,13 +42,14 @@ class PostsContainer extends Component {
 
   renderPosts() {
     if (Array.isArray(this.props.posts.posts)) {
-      //console.log('from postscontainer: ', this.props.posts)
+
       return this.props.posts.posts.slice(0, 30).map((post, i) => (
         // console.log('LINE 28 IN POSTS CONTAINER, POST.BODY: ', post.body);
 
         <Post
           username={post.username}
           upVoteFunc={this.props.upVote}
+          bannedFunc={this.props.bannedUser}
           downVoteFunc={this.props.downVote}
           currentUserId={this.props.userId}
           votes={post.votes}
@@ -87,4 +88,4 @@ class PostsContainer extends Component {
 
 //not sure why to export functions but have added upVote
 
-export default connect(mapStateToProps, { getPosts, upVote, downVote })(PostsContainer);
+export default connect(mapStateToProps, { getPosts, upVote, downVote, bannedUser })(PostsContainer);

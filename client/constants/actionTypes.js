@@ -10,4 +10,6 @@ export const UPDATE_USER = 'UPDATE_USER';
 export const UPVOTE = 'UPVOTE';
 export const DOWNVOTE = 'DOWNVOTE';
 
-export const UPDATE_USER_VOTES = 'UPDATE_USER_VOTES'
+export const BANNED = 'BANNED';
+
+export const UPDATE_USER_VOTES = 'UPDATE_USER_VOTES';

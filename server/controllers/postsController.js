@@ -135,4 +135,25 @@ const reqBody = {
 }
 */
 
+postsController.bannedUser = (req, res, next) => {   
+  const { username, user_id } = req.body; 
+  // console.log('currentVotes==========================', res.locals.currentVotes)
+  const queryToRemoveUser = {
+    text: 'DELETE FROM users WHERE _id = $1',
+    values: [user_id],
+  }
+  db.query(queryToRemoveUser)
+    .then((data) =>{
+      // res.locals.updatedUser = data.rows[0]
+      // console.log('querytoupdateuser==========================', data.rows[0])
+      return next();
+    })
+    .catch((err) => {
+      return next({
+        message: 'error banning the user',
+        error: err,
+      });
+    });
+}
+
 module.exports = postsController;
