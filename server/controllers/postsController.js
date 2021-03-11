@@ -27,14 +27,17 @@ postsController.getFeedPosts = async (req, res, next) => {
        -->Gets all child comments on a post  */
 postsController.getThreadPosts = async (req, res, next) => {
   try {
+    const { postId } = req.body;
+
     const query = `
   SELECT * FROM posts p
-  WHERE p.parent_id = ${req.body.postId}
+  WHERE p.parent_id = $1
   ORDER BY p.createdat`;
-    await db.query(query, (err, data) => {
-      res.locals.threadPosts = data.rows;
+  
+    const { rows } = await db.query(query, [postId]) 
+      res.locals.threadPosts = rows;
       return next();
-    });
+    
   } catch (err) {
     return next({
       log: 'error at postController.getThreadPosts',
