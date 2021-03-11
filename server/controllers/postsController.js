@@ -32,15 +32,14 @@ postsController.getThreadPosts = async (req, res, next) => {
     // postId = req.params.number
     // console.log('PostId is', number)
     // console.log('Request.params is', req.params);
+
     const query = `
   SELECT * FROM posts p
   WHERE p.parent_id = $1
   ORDER BY p.createdat`;
   
-    const response = await db.query(query, [number]) 
-      res.locals.threadPosts = response.rows;
-      // console.log('Res obj', response.rows)
-      // console.log('This is the params.number', params.number);
+    const { rows } = await db.query(query, [number]) 
+      res.locals.threadPosts = rows;
       return next();
     
   } catch (err) {
