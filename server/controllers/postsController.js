@@ -10,14 +10,14 @@ postsController.getFeedPosts = async (req, res, next) => {
   const query = `
     SELECT * FROM posts p
     WHERE p.parent_id = 0
-    ORDER BY p.createdat`;
+    ORDER BY p.createdat DESC`;
   await db.query(query, (err,data) => {
     res.locals.feedPosts = data.rows;
     return next()
   });
 }catch(err){
   return next({
-  log: 'error at postController.getAllPosts',
+  log: 'error at postController.getFeedPosts',
   status: 401,
   message: `failed to retrieve posts ${err.message}`,
 })};
@@ -29,7 +29,7 @@ postsController.getThreadPosts = async (req, res, next) => {
   const query = `
   SELECT * FROM posts p
   WHERE p.parent_id = ${req.body.postId}
-  ORDER BY p.createdat DESC`;
+  ORDER BY p.createdat`;
  await db.query(query, (err, data) => {
     res.locals.threadPosts = data.rows;
     return next();
@@ -42,18 +42,52 @@ postsController.getThreadPosts = async (req, res, next) => {
 })};
 };
 
-postsController.createPost = (req, res, next) => {
-  const { user_id, alias, body, parent_id } = req.body;
+postsController.createPost = async (req, res, next) => {
+  /*  Check if a parent_id is in the req body */
+  if(req.body.parent_id){
+    try{
+      /* If parent_id is present then the post is a thread post */
+    const { user_id, alias, body, parent_id } = req.body;
 
-  const query = `
+    const query = `
         INSERT INTO posts(user_id, alias, createdat, body, parent_id)
-        VALUES(${user_id}, ${alias}, ${now()}, ${body}, ${parent_id})
+        VALUES(${user_id}, ${alias}, NOW(), ${body}, ${parent_id})
         RETURNING *`;
 
-  db.query(query, [user_id, alias, createdat, body, parent_id]).then((data) => {
-    res.locals.newPost = data.rows[0];
-    return next();
-  });
+        await db.query(query, (err,data) => {
+          res.locals.newPost = data.rows[0];
+          return next();
+        });
+        /* Error handler for creating a comment ie thread post */
+      }catch(err){
+        return next({
+          log: 'error at postsController.createPost when creating a thread post',
+          status: 401,
+          message: `failed to create comment, error: ${err.message}`,
+        })};
+        /* If parent_id is not present then the post is a feed post */
+      }else {
+        try{
+          const { user_id, alias, body } = req.body;
+
+          const query = `
+          INSERT INTO posts(user_id, alias, createdat, body)
+          VALUES(${user_id}, ${alias}, ${now()}, ${body})
+          RETURNING *`;
+
+          await db.query(query, (err, data) => {
+            res.locals.newPost = data.rows[0];
+            return next();
+          });
+          /* Error handling for creating a feed post */
+        }catch(err){
+          return next({
+            log: 'error at postsController.createPost when creating a feed post',
+            status: 401,
+            message: `failed to create post, error: ${err.message}`,
+          })
+        };
+      };
 };
 
 module.exports = postsController;
