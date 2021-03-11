@@ -1,12 +1,11 @@
 import React from 'react';
 
-
-
-export default function Post({ title, body, styling, votes, postId, userId, upVoteFunc, downVoteFunc, currentUserId }) {
+export default function Post({ title, body, styling, votes, postId, userId, upVoteFunc, downVoteFunc, currentUserId, username }) {
   //console.log(styling);
   
   return (
     <div className={`Post ${styling}`}>
+      <h4>{username}</h4>
       <div className='TitleAndBody'>
         <h4>{title}</h4>
         <p className='PostBody'>{body}</p>
@@ -17,9 +16,12 @@ export default function Post({ title, body, styling, votes, postId, userId, upVo
           type="button" 
           className="upVoteButton" 
           id="upvote" 
-          onClick={(e) => { 
+          onClick={(e) => {
+            //var socket = io();
             e.preventDefault(); 
             upVoteFunc(votes, postId, userId, currentUserId)
+            // socket.emit('new upvote', `emitting from Post: ${votes}`);
+            // socket.emit('new upvote', {votes: votes,userId: userId,currentUserId: currentUserId})
           }
             }>🐃</button>
           <button 

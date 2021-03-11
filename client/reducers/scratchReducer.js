@@ -29,6 +29,7 @@ const scratchReducer = (state = initialState, action) => {
       },
     };
   }
+  
 
 
   default: {
