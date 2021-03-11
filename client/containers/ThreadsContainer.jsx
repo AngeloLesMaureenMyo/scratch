@@ -2,8 +2,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {getThreads} from '../actions/actions';
-import Thread from './Thread.jsx';
-import ThreadForm from './ThreadForm.jsx';
+import Thread from '../components/Thread.jsx';
+import ThreadForm from '../components/ThreadForm.jsx';
 
 const mapStateToProps = (state) => {
   //

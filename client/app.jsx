@@ -4,7 +4,7 @@ import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import Wrapper from './containers/MainContainer.jsx';
 import Login from './components/Login.jsx';
 import Signup from './components/Signup.jsx';
-import PostsContainer from './components/PostsContainer.jsx';
+import PostsContainer from './containers/PostsContainer.jsx';
 import FeedLink from './components/FeedLink.jsx';
 
 const mapStateToProps = (state) => ({
