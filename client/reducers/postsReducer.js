@@ -4,6 +4,7 @@ const initialState = {
   posts: [],
   newPostTitle: '',
   newPostBody: '',
+  username: '',
 };
 
 //add property to deal with upvotes/downvotes
@@ -19,6 +20,10 @@ const postsReducer = (state = initialState, action) => {
   }
   case types.UPDATE_BODY: {
     return { ...state, newPostBody: action.payload };
+  }
+
+  case types.UPDATE_USER: {
+    return { ...state, newPostUser: action.payload };
   }
  
   case types.SAVE_POST: {

@@ -55,8 +55,13 @@ authController.login = (req, res, next) => {
 
   db.query(query, [username])
     .then((data) => {
+      //check if user is in DB
+      // console.log('data.rows=====================================', data.rows)
+      if (data.rows.length === 0) return res.redirect('/')
       // Compare plaintext pass to hash from DB
       bcrypt.compare(password, data.rows[0].password).then((result) => {
+
+        if (!result) return res.redirect('/')
         if (result) {
           const user = {
             username: data.rows[0].username,
