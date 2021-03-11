@@ -29,6 +29,18 @@ const scratchReducer = (state = initialState, action) => {
       },
     };
   }
+
+  case types.BANNED: {
+    // const isAuthenticated = action;
+    console.log('action payload BANNED==========', action.payload);
+    return {
+      ...state,
+      user: {
+        username: action.payload.username,
+        id: action.payload._id,
+      },
+    };
+  }
   
 
 
