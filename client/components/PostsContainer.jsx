@@ -38,7 +38,7 @@ class PostsContainer extends Component {
   renderPosts() {
     if (Array.isArray(this.props.posts.posts)) {
      
-      return this.props.posts.posts.map((post, i) => (
+      return this.props.posts.posts.slice(0, 30).map((post, i) => (
         // console.log('LINE 28 IN POSTS CONTAINER, POST.BODY: ', post.body);
 
         <Post
