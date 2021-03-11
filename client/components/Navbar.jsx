@@ -22,7 +22,7 @@ class Navbar extends Component {
         {user ? <p>Welcome back, {user.username}</p> : null}
         </div>
         <div>
-        {user ? <p>YAKS {user.votes}</p> : null}
+        {user ? <p>YAKS: {user.votes}</p> : null}
         </div>
         </div>
       </div>

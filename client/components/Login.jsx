@@ -70,7 +70,7 @@ const Login = (props) => {
   }, [password]);
 
   return (
-    <section className="">
+    <section className="mainSection">
       <Navbar />
       <div className="Login">
         <article className="cardCreateChar">
@@ -101,12 +101,19 @@ const Login = (props) => {
             ) : null}
           </div>
           <div className="signup">
-            <Link to="/signup" className="link">
-              Sign Up
-            </Link>
-            <button type="button" className="btnMain" onClick={loginUser}>
-              Login
-            </button>
+           
+            {/* <div className="loginButtonsContainer"> */}
+              {/* <button type='button' className='SignUpButton'> */}
+              <Link to="/signup" className="link">
+                Sign Up
+              </Link>
+              {/* </button> */}
+        
+              
+              <button type="button" className="LoginButton" onClick={loginUser}>
+                Login
+              </button>
+            {/* </div> */}
           </div>
         </article>
       </div>

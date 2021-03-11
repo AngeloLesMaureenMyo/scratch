@@ -20,11 +20,20 @@ const mapDispatchToProps = (dispatch) => {
     updateBody: (value) => dispatch(updateBody(value)),
     handleSubmit: (e, title, body, id, username) => {
       e.preventDefault();
+      console.log('e.target on click==========================', e.target)
+
       e.target.reset();
       if (!title || !body) return;
-
+      
       dispatch(savePost(filter.clean(title), filter.clean(body), id, username));
     },
+    handleEnter: (title, body, id, username) => {
+
+      if (!title || !body) return;
+      
+      dispatch(savePost(filter.clean(title), filter.clean(body), id, username));
+      // dispatch(updateTitle(''))
+    }
   };
 };
 
@@ -34,8 +43,9 @@ class PostForm extends Component {
       
       <center className="PostForm">
         <form
+          id='form'
           onSubmit={(e) => {
-            var socket = io();
+            //var socket = io();
             this.props.handleSubmit(
               e,
               this.props.newPostTitle,
@@ -43,19 +53,46 @@ class PostForm extends Component {
               this.props.user.id,
               this.props.user.username
             )
-            socket.emit('new post', `emitting from PostForm: ${this.props.newPostBody}`);
+     
           }
         }
         >
           <input
             placeholder="Add a title"
             onChange={(e) => this.props.updateTitle(e.target.value)}
+            // onKeyDown={e => {              
+            //   if (e.key ==='Enter') {
+            //     e.preventDefault();
+            //     this.props.handleEnter(
+            //       this.props.newPostTitle,
+            //       this.props.newPostBody,
+            //       this.props.user.id,
+            //       this.props.user.username
+            //     )
+            //     this.props.updateTitle('');
+            //     e.target.value = '';
+            //   }
+            // }}
           />
           <br />
           <textarea
             placeholder="Add a body"
             onChange={(e) => this.props.updateBody(e.target.value)}
+            onKeyDown={e => {              
+              if (e.key ==='Enter') {
+                e.preventDefault();
+                this.props.handleEnter(
+                  this.props.newPostTitle,
+                  this.props.newPostBody,
+                  this.props.user.id,
+                  this.props.user.username
+                )
+                this.props.updateBody('');  
+                e.target.value = '';
+              }
+            }}
           />
+          
           <br />
           <button type="submit">Add Post</button>
         </form>

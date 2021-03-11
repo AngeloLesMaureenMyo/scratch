@@ -79,7 +79,7 @@ const Signup = (props) => {
     <section className="mainSection">
       <Navbar />
       <div className="Login">
-        <article>
+        <article className = 'cardCreateChar'>
           <center>
             <h2 className="SignUpHeader">Sign Up</h2>
           </center>
