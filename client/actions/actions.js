@@ -53,7 +53,13 @@ export const updateActiveThreadID = (newID) => ({
 
 export const getThreads = (id) => (dispatch) => {
   console.log('Inside getThreads in actions.js')
-  fetch('/posts/threads')
+  const reqBody = {
+    postId: id
+  }
+  fetch('/posts/threads'), {
+    headers: { 'Content-Type': 'Application/JSON' },
+    body: JSON.stringify(reqBody),
+  }
     .then((res) => res.json())
     .then((data) => {
       console.log('Data from fetch is', data);
@@ -62,11 +68,12 @@ export const getThreads = (id) => (dispatch) => {
 };
 
 
-export const saveThread = (body, id, postId) => (dispatch) => {
+export const saveThread = (alias, body, id, postId) => (dispatch) => {
   const reqBody = {
+    alias,
     body,
     user_id: id,
-    postId: postId
+    parent_id: postId
   };
 
   fetch('/threads', {

@@ -35,6 +35,7 @@ postsController.getThreadPosts = async (req, res, next) => {
       if(res.locals.threadPosts){
       res.locals.threadPosts = data.rows;
       }
+      console.log('req.body.postId', req.body.postId)
       console.log('Inside postController.getThreadposts')
       return next();
     });

@@ -37,6 +37,7 @@ class ThreadsContainer extends Component {
                     alias={thread.alias}
                     body={thread.body}
                     dateTime={thread.createdat}
+                    feedPostID = {this.props.feedPostID}
                     styling={thread.user_id === this.props.userId ? 'MyPost' : null}
                     />
                 )
@@ -50,7 +51,7 @@ class ThreadsContainer extends Component {
        <center className="ThreadsContainer">
            {/* Do iteration logic similiar to PostForm */}
         {this.renderThreads}
-       <ThreadForm/>
+       <ThreadForm feedPostID = {this.props.feedPostID}/>
      </center>
       );
      }

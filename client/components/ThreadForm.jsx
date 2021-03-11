@@ -17,12 +17,13 @@ const mapDispatchToProps = (dispatch) => {
     updateThread: (value) => dispatch(updateThread(value)),
     handleSubmit: (e, body, id, feedPostId) => {
       e.preventDefault();
+      e.persist();
       console.log('e is', e)
       console.log('Body is', body)
       console.log('The $', e.target)
       console.log('Target val', e.target.value)
     //   if (!body) return console.log('No body');
-    //   dispatch(saveThread(body, id, feedPostId));
+      dispatch(saveThread(body, id, feedPostId));
     },
   };
 };
