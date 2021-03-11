@@ -3,7 +3,7 @@ import React from 'react';
 const timestamp = (psqlDate) => {
   const postTime = new Date(psqlDate).getTime()
   const currentTime = new Date().getTime()
-  let differenceInMin = (currentTime-postTime)/1000/60
+  let differenceInMin = (currentTime-postTime)/1000/60+300
   console.log('postTime:', postTime)
   console.log('currentTime:', currentTime)
   console.log('differenceInMin:', differenceInMin)  
@@ -31,14 +31,13 @@ const timestamp = (psqlDate) => {
 }
 
 
-export default function Post({ title, body, dateTime, feedPostID, styling, updateActiveThreadID }) {
+export default function Post({ alias, body, dateTime, feedPostID, styling, updateActiveThreadID }) {
   // console.log(styling);
   // to update to display how old (in minutes if less than a day) the posts are
   let time = timestamp(dateTime);
   return (
     <div className={`Post ${styling}`}>
-      <h4>{title}:</h4>
-      {/* <h4>{alias}</h4> */}
+      <h4>{alias}</h4>
       <p>{body}</p>
       <span>{time}</span>
       <br></br>

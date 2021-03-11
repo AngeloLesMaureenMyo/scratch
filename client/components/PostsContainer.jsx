@@ -42,7 +42,6 @@ class PostsContainer extends Component {
           updateActiveThreadID={this.props.updateActiveThreadID}
           key={`Post ${i}`}
           alias={post.alias}
-          title={post.title}
           body={post.body}
           feedPostID={post._id}
           dateTime={post.createdat}
