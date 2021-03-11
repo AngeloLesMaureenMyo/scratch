@@ -22,7 +22,7 @@ router.get(
   }
 );
 /*  Gets all child posts to fill thread container when ---> onClick of button on post component  */
-router.get('/threads', authController.verifyUser, 
+router.get('/threads/:number', authController.verifyUser, 
 postsController.getThreadPosts, 
 (req, res) => {
   console.log('getting thread posts');
