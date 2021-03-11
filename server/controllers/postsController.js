@@ -12,10 +12,10 @@ postsController.getFeedPosts = async (req, res, next) => {
     SELECT * FROM posts p
     WHERE p.parent_id = 0
     ORDER BY p.createdat DESC`;
-    await db.query(query, (err, data) => {
-      res.locals.feedPosts = data.rows;
+    const { rows } = await db.query(query)
+      res.locals.feedPosts = rows;
       return next();
-    });
+      
   } catch (err) {
     return next({
       log: 'error at postController.getFeedPosts',
@@ -29,6 +29,7 @@ postsController.getFeedPosts = async (req, res, next) => {
 postsController.getThreadPosts = async (req, res, next) => {
   try {
     const { postId } = req.body
+
     const query = `
   SELECT * FROM posts p
   WHERE p.parent_id = $1
@@ -98,17 +99,17 @@ postsController.createPost = async (req, res, next) => {
 /* **************************** */
 /* Controllers for karma logic */
 
-postsController.updatePostKarma = async (req, res, next) => {
-  try{
-    const { post_id, karma } = req.body;
+// postsController.updatePostKarma = async (req, res, next) => {
+//   try{
+//     const { post_id, karma } = req.body;
     
-    const query = `INSERT INTO posts p`;
+//     const query = `INSERT INTO posts p`;
 
-    const { rows } = await db.query(query, [])
-        res.locals.newKarma = rows[0];
-        return next();
-  }
-}
+//     const { rows } = await db.query(query, [])
+//         res.locals.newKarma = rows[0];
+//         return next();
+//   }
+// }
 
 
 module.exports = postsController;
