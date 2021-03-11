@@ -6,8 +6,9 @@ import { updateThread, saveThread } from '../actions/actions';
 
 const mapStateToProps = (state) => {
   return {
-    newThreadBody: state.posts.newThreadBody,
+    newThreadBody: state.threads.newThreadBody,
      user: state.scratch.user,
+     alias: state.posts.alias,
   };
 };
 
@@ -15,17 +16,22 @@ const mapDispatchToProps = (dispatch) => {
   return {
     // updateTitle: (value) => dispatch(updateTitle(value)),
     updateThread: (value) => dispatch(updateThread(value)),
-    handleSubmit: (e,alias, body, id, feedPostId) => {
+    handleSubmit: (e,alias, body, id, parent_id) => {
       e.preventDefault();
-      e.persist();
      if (!body) return console.log('No body');
-      dispatch(saveThread(alias, body, id, feedPostId));
+     console.log('Alias is', alias)
+      dispatch(saveThread(alias, body, id, parent_id));
     },
   };
 };
 
 class ThreadForm extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
+    console.log('The current state is', this.props)
+    
     return (
       <center className="ThreadForm">
         <form
@@ -35,7 +41,7 @@ class ThreadForm extends Component {
               this.props.alias,
               this.props.newThreadBody,
               this.props.user.id,
-              this.props.feedPostId
+              this.props.parent_id
             )
           }
         >

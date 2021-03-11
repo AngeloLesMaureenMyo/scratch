@@ -40,7 +40,7 @@ class ThreadsContainer extends Component {
                     alias={thread.alias}
                     body={thread.body}
                     dateTime={thread.createdat}
-                    feedPostID = {this.props.feedPostID}
+                    parent_id = {thread.parent_id}
                     styling={thread.user_id === this.props.userId ? 'MyPost' : null}
                     />
                 )
@@ -54,7 +54,7 @@ class ThreadsContainer extends Component {
        <center className="ThreadsContainer">
 
         {this.renderThreads()}
-       <ThreadForm feedPostID = {this.props.feedPostID}/>
+       <ThreadForm parent_id = {this.props.feedPostID} alias = {this.props.alias}/>
      </center>
       );
      }

@@ -40,7 +40,7 @@ export default function Thread({ alias, body, dateTime, styling}) {
    let time = timestamp(dateTime);
     return (
       <div className={`Thread ${styling}`}>
-          <h9>{alias}</h9>
+          <h6>{alias}</h6>
           <p>{body}</p>
           <span>{time}</span>
           <br></br>

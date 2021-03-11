@@ -3,6 +3,7 @@ import * as types from '../constants/actionTypes';
 const initialState = {
   threads: [],
   newThreadBody: '',
+  
 };
 
 const threadsReducer = (state = initialState, action) => {
@@ -22,8 +23,8 @@ const threadsReducer = (state = initialState, action) => {
     // }
     case types.SAVE_THREAD: {
       console.log('Youve just fired saveThreads')
-      const newThreadList = [action.payload, ...state.posts];
-      return { ...state, posts: newThreadList };
+      const newThreadList = [action.payload, ...state.threads];
+      return { ...state, threads: newThreadList };
     }
     default: {
       return state;

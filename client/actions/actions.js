@@ -63,21 +63,22 @@ export const getThreads = (id) => (dispatch) => {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log('Thread is', data[0].body);
+      // console.log('Thread is', data[0].body);
       dispatch({ type: types.GET_THREADS, payload: data });
     });
 };
 
 
-export const saveThread = (alias, body, id, postId) => (dispatch) => {
+export const saveThread = (alias, body, id, feedPostId) => (dispatch) => {
   const reqBody = {
     alias,
     body,
     user_id: id,
-    parent_id: postId
+    parent_id: feedPostId
   };
   console.log('Inside the saveThread actions.js file')
-  fetch('/threads', {
+  console.log('Req body is', reqBody);
+  fetch('/posts', {
     method: 'POST',
     headers: { 'Content-Type': 'Application/JSON' },
     body: JSON.stringify(reqBody),
