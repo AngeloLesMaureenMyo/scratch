@@ -1,4 +1,5 @@
 const db = require('../models/socialModels');
+const { post } = require('../routes/auth');
 
 const postsController = {};
 
@@ -27,18 +28,15 @@ postsController.getFeedPosts = async (req, res, next) => {
        -->Gets all child comments on a post  */
 postsController.getThreadPosts = async (req, res, next) => {
   try {
+    const { postId } = req.body
     const query = `
   SELECT * FROM posts p
-  WHERE p.parent_id = ${req.body.postId}
+  WHERE p.parent_id = $1
   ORDER BY p.createdat`;
-    await db.query(query, (err, data) => {
-      if(res.locals.threadPosts){
-      res.locals.threadPosts = data.rows;
-      }
-      console.log('req.body.postId', req.body.postId)
-      console.log('Inside postController.getThreadposts')
+    const { rows } = await db.query(query, [postId])
+      res.locals.threadPosts = rows;
       return next();
-    });
+
   } catch (err) {
     return next({
       log: 'error at postController.getThreadPosts',
@@ -96,5 +94,20 @@ postsController.createPost = async (req, res, next) => {
     }
   }
 };
+/* **************************** */
+/* Controllers for karma logic */
+
+postsController.updatePostKarma = async (req, res, next) => {
+  try{
+    const { post_id, karma } = req.body;
+    
+    const query = `INSERT INTO posts p`;
+
+    const { rows } = await db.query(query, [])
+        res.locals.newKarma = rows[0];
+        return next();
+  }
+}
+
 
 module.exports = postsController;
